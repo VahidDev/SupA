@@ -75,14 +75,14 @@ namespace SupA.Lib.Initialization
             pubmanHourCost = 80;
 
             // Start Activity Log
-            pubActivityLog = new Collection();
+            pubActivityLog = new Collection<object>();
 
             // This variable is specific to the support point selector functions
             pubNoofCategories = Convert.ToInt32(activeWorkbook.Sheets["SheetName"].Range["NoofCategories"].Value); // Replace "SheetName" with actual sheet name
 
             // This is temporary code
-            // SupAProgressBar.Show(); // Commented out as WinForms ProgressBar is not directly equivalent to VBA UserForm
-            //Application.DoEvents();
+            SupAProgressBar.Show(); // Commented out as WinForms ProgressBar is not directly equivalent to VBA UserForm
+            Application.DoEvents();
 
             // Activity Log Tracking
             WriteActivityLog("Load all Variables for SupA", DateTime.Now);

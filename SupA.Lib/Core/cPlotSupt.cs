@@ -18,7 +18,7 @@ namespace SupA.Lib
         private float pWeightPrelim;
         private float pWeightCalculated;
         private float pLength;
-        private Collection<object> pConntoExistingSteelC;
+        private Collection<cGroupNode> pConntoExistingSteelC;
         private string pPotlSuptNo;
         private string pPotlSuptChildof;
         private Collection<object> pCoordStringENColl;
@@ -67,7 +67,7 @@ namespace SupA.Lib
 
         public object WriteAllConntoExistingSteelCNodesinFrame(float RowNo)
         {
-            Collection<object> Group = pConntoExistingSteelC;
+            Collection<cGroupNode> Group = pConntoExistingSteelC;
             string[] Arr = new string[Group.Count + 1];
             string InternalPotlSuptNo = pPotlSuptNo;
             if (Group.Count == 0)
@@ -206,7 +206,7 @@ namespace SupA.Lib
             set { pLength = value; }
         }
 
-        public Collection<object> ConntoExistingSteelC
+        public Collection<cGroupNode> ConntoExistingSteelC
         {
             get { return pConntoExistingSteelC; }
             set { pConntoExistingSteelC = value; }

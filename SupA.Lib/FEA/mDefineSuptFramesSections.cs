@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using Microsoft.Office.Interop.Excel;
 using SupA.Lib.Initialization;
+using SupA.Lib.Core;
 
 namespace SupA.Lib.FEA
 {
@@ -30,153 +31,80 @@ namespace SupA.Lib.FEA
             }
         }
 
-        public static void DefineSuptFramesSections(List<cPotlSupt> CollPotlSuptFrameDetails, List<object> CollAdjacentSuptPoints, int SuptGroupNo)
+        static void DefineSuptFramesSections(List<cPotlSupt> collPotlSuptFrameDetails, List<object> collAdjacentSuptPoints, int suptGroupNo)
         {
-            cPotlSupt Frame;
-            int FrameC;
-            int NoofBeamGroups;
-            object TmpExportArr;
-            int SctnTblC;
-            int AccSctnsC;
-            int BeamsinFrmC;
-            bool UnityCheckAcceptable;
-            bool DeflectionAcceptable;
-            cSteel Beam;
+            cPotlSupt frame;
+            int frameC = 0;
+            int noofBeamGroups;
+            string stdFile;
 
-            double RangeRowEnd;
-            bool BeamAvailableforLoads;
-            TTblSectionProperties PreferedSctnProp;
-            var TblLightestSctnProp = new TTblSectionProperties[1];
-            var CollAcceptableSctnsProps = new Collection();
-            var CollInvalidPotlSuptFrameDetails = new Collection();
-            CollInvalidPotlSuptFrameDetails = new Collection();
+            // Define your file paths
+            string pubstrFolderPath = @"C:\Your\Public\Folder\Path\"; // Update with your actual folder path
+            string supOutputFolder = Path.Combine(pubstrFolderPath, "SupAOutput");
 
-            // First create an array containing only my preferred section sizes, and then sort this array by weight.
-            CreateTblPreferedSctnsProps();
+            Directory.CreateDirectory(Path.Combine(supOutputFolder, $"Frame{suptGroupNo + SuptGroupNoMod}", "STAAD"));
 
-            // Create a variable to hold your OpenSTAAD object(s) and set this
-            dynamic objOpenSTAAD = Interaction.GetObject(null, "StaadPro.OpenSTAAD");
-            objOpenSTAAD.SetSilentMode(1);
-
-            // Other STAAD Variables
-            int RetVal;
-            string StdFile;
-
-            // Create the parent folder for all of our STAAD calculations
-            var FSO = new FileSystemObject();
-
-            // First create the high level folder that will house all the potl support runs for our frame
-            FSO.CreateFolder(pubstrFolderPath + "SupAOutput\\Frame" + (SuptGroupNo + SuptGroupNoMod) + "\\STAAD");
-
-            // Now work through every "potlsupt" frame routing option in my frame
-            FrameC = 1;
-            while (FrameC <= CollPotlSuptFrameDetails.Count)
+            // Loop through each frame
+            while (frameC < collPotlSuptFrameDetails.Count)
             {
-                Frame = CollPotlSuptFrameDetails[FrameC];
-                CollAcceptableSctnsProps = new Collection();
-                BeamAvailableforLoads = false;
+                frame = collPotlSuptFrameDetails[frameC];
+                List<string> collAcceptableSctnsProps = new List<string>();
+                bool beamAvailableforLoads = false;
 
-                // Now go and create the FEM Model Geometry. A copy of the FEM Model Geometry is created for
-                // every potential preferedsctnprop and these are all run as a single batch in STAAD
-                // as this is the most time efficient way of doing things.
-                CreateFEModelGeometry(Frame, CollAdjacentSuptPoints, NoofBeamGroups, BeamAvailableforLoads, SuptGroupNo, StdFile);
+                // Create the FEM Model Geometry
+                CreateFEModelGeometry(frame, collAdjacentSuptPoints, out noofBeamGroups, out beamAvailableforLoads, suptGroupNo, out stdFile);
 
-                objOpenSTAAD.OpenSTAADFile(StdFile);
-                // Now we need to make sure that the file is opened before we move on
-                while (!(FSO.FileExists(Strings.Replace(StdFile, ".std", ".png")) && FSO.FileExists(Strings.Replace(StdFile, ".emf", ".png"))))
+                // Open and analyze the STAAD file
+                using (var objOpenSTAAD = new OpenSTAAD())
                 {
-                    Interaction.Wait(DateAndTime.Now + TimeSpan.FromDays(1)); // Adjust the waiting time as necessary
-                }
+                    objOpenSTAAD.OpenSTAADFile(stdFile);
 
-                // Load your STAAD file - make sure you have successfully run the file
-                objOpenSTAAD.GetSTAADFile(StdFile, "TRUE");
-
-            ReturnToAnalysis:
-                // Run FEA analysis within STAAD
-                RetVal = objOpenSTAAD.AnalyzeEx(1, 0, 1); // For some reason (1,1,1) does not work as an option file
-
-                // Check if results are available or not
-                if (objOpenSTAAD.Output.AreResultsAvailable == 0)
-                {
-                    Interaction.Wait(DateAndTime.Now + TimeSpan.FromDays(1)); // Adjust the waiting time as necessary
-                    goto ReturnToAnalysis;
-                    Interaction.MsgBox("Results Unavailable");
-                    objOpenSTAAD = null;
-                    return;
-                }
-
-                if (BeamAvailableforLoads == true)
-                {
-                    // Now do loops on 2 levels. Level 1 loop through our TblPreferedSctnsProps one section type at a time.
-                    // Level 2 loops through our potlsupt frame one beam at a time and checks if the beam passed or failed.
-                    // If any beams have failed then the entire frame should be assigned a fail.
-                    // Based on this loop a new table of only the PreferedSctnsProps that passed the code checks is created
-                    // Then we
-                    SctnTblC = 1;
-                    while (SctnTblC <= Information.UBound(TblPreferedSctnsProps))
+                    // Wait until the results are available
+                    while (!File.Exists(Path.ChangeExtension(stdFile, ".png")) && !File.Exists(Path.ChangeExtension(stdFile, ".emf")))
                     {
-                        UnityCheckAcceptable = true;
-                        DeflectionAcceptable = true;
-                        PreferedSctnProp = TblPreferedSctnsProps[SctnTblC];
-                        // This used to be required but not any more as we are now using STAAD
-                        // Call AssignSuptFrameSectionSizes(Frame, NoofBeamGroups, PreferedSctnProp);
-                        for (BeamsinFrmC = 1; BeamsinFrmC <= Frame.BeamsinFrame.Count; BeamsinFrmC++)
-                        {
-                            Beam = (cSteel)Frame.BeamsinFrame[BeamsinFrmC];
-                            // Analyse Results
-                            AnalyseFEAResults(objOpenSTAAD, Beam, SctnTblC, BeamsinFrmC, PreferedSctnProp, ref UnityCheckAcceptable, ref DeflectionAcceptable);
-                        }
-
-                        // if all the beams with this section are code compliant then add it to our table of acceptable sections
-                        if (UnityCheckAcceptable == true && DeflectionAcceptable == true)
-                        {
-                            CollAcceptableSctnsProps.Add(PreferedSctnProp.STAADSctnname);
-                        }
-
-                        SctnTblC = SctnTblC + 1;
+                        Thread.Sleep(1000); // Wait for 1 second
                     }
 
-                    // If CollAcceptableSctnsProps is empty then this means that no sections were acceptable
-                    // Then remove this potlsupt from CollPotlSuptFrameDetails and add it to CollInvalidPotlSuptFrameDetails
-                    // So that it can be written out as an un-acceptable route
-                    if (CollAcceptableSctnsProps.Count == 0)
+                    objOpenSTAAD.GetSTAADFile(stdFile, true);
+
+                    // Run FEA analysis within STAAD
+                    int retVal = objOpenSTAAD.AnalyzeEx(1, 0, 1);
+
+                    // Check if results are available
+                    if (objOpenSTAAD.Output.AreResultsAvailable == 0)
                     {
-                        // MsgBox("No sections pass for this frame alternative");
-                        CollInvalidPotlSuptFrameDetails.Add(Frame);
-                        CollPotlSuptFrameDetails.Remove(FrameC);
-                        FrameC = FrameC - 1;
+                        Thread.Sleep(4000); // Wait for 4 seconds
+                        continue; // Retry analysis
+                    }
+
+                    // Analyze results for each beam in the frame
+                    foreach (var beam in frame.BeamsinFrame)
+                    {
+                        AnalyseFEAResults(objOpenSTAAD, beam, collAcceptableSctnsProps);
+                    }
+
+                    // If no sections were acceptable, remove the frame from the collection
+                    if (collAcceptableSctnsProps.Count == 0)
+                    {
+                        collPotlSuptFrameDetails.RemoveAt(frameC);
+                        frameC--;
                     }
                     else
                     {
-                        // Now that we have a reduced list of acceptable sections in CollAcceptableSctnsProps then do a cost analysis for each alternative
-                        TblLightestSctnProp = new TTblSectionProperties[1];
-                        SelectBestPotlSupt(CollAcceptableSctnsProps, Frame);
-                        // And finally create a STAAD input file with just the section selected for use in the frame
-                        CreateFEModelGeometry(Frame, CollAdjacentSuptPoints, NoofBeamGroups, BeamAvailableforLoads, SuptGroupNo, StdFile);
+                        // Select the best potential support
+                        SelectBestPotlSupt(collAcceptableSctnsProps, frame);
+
+                        // Create STAAD input file with selected section
+                        CreateFEModelGeometry(frame, collAdjacentSuptPoints, out _, out _, suptGroupNo, out stdFile);
                     }
                 }
-                else
-                {
-                    // the below is basically a fudge that removes any supports that don't have a support beam included in their definition
-                    // these shouldn't have got to this point, but a couple are arriving.
-                    CollPotlSuptFrameDetails.Remove(FrameC);
-                    FrameC = FrameC - 1;
-                }
 
-                TblLightestSctnProp = new TTblSectionProperties[1];
-                FrameC = FrameC + 1;
+                frameC++;
             }
 
-            // Export the collection of those potlsupport routes that didn't pass
-            if (pubBOOLTraceOn == true)
-            {
-                ExportColltoCSVFile(CollInvalidPotlSuptFrameDetails, "CollFEAFailPotlSuptFrameDetails-Beams-F" + (SuptGroupNo + SuptGroupNoMod), "csv", "WriteAllBeamsinFrame");
-            }
-
-            // At the end of your application, remember to terminate the OpenSTAAD objects.
-            objOpenSTAAD = null;
+            // Export frames that didn't pass
+            ExportColltoCSVFile(collPotlSuptFrameDetails, $"CollFEAFailPotlSuptFrameDetails-Beams-F{suptGroupNo + SuptGroupNoMod}.csv", "WriteAllBeamsinFrame");
         }
-
 
         public static void ExportFEMresults(cPotlSupt Frame, int SuptGroupNo)
         {
