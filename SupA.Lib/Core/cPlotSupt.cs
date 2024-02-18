@@ -1,7 +1,7 @@
 ﻿using SupA.Lib.Core;
 using System.Collections.ObjectModel;
 
-namespace SupA.Lib
+namespace SupA.Lib.Core
 {
     public class cPotlSupt
     {

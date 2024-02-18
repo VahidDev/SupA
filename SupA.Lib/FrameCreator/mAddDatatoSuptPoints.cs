@@ -1,4 +1,5 @@
-﻿using SupA.Lib.Initialization;
+﻿using SupA.Lib.Core;
+using SupA.Lib.Initialization;
 
 namespace SupA.Lib.FrameCreator
 {

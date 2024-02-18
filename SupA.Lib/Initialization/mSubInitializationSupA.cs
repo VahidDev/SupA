@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using SupA.Lib.Core;
 using System.Collections.ObjectModel;
 
 namespace SupA.Lib.Initialization
@@ -39,7 +40,7 @@ namespace SupA.Lib.Initialization
         public static float pubFabricationHours;
         public static float pubmanHourCost;
         public static int SuptGroupNoMod;
-        public static cLogEntry pubLogEntry;
+        public static CLogEntry pubLogEntry;
         public static Collection<object> pubActivityLog; // Assuming Collection is a custom type or using System.Collections.ObjectModel
 
         // Functions for supt point selection
