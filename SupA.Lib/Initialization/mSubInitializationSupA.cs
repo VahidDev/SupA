@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using SupA.Lib.Core;
+using SupA.Lib.DataManipulation;
 using System.Collections.ObjectModel;
 
 namespace SupA.Lib.Initialization
@@ -101,7 +102,7 @@ namespace SupA.Lib.Initialization
                     RunInUserDefinedPipeListMode();
                     break;
                 case "ClearPreviousRun":
-                    ArchiveRun(strRunName, str3DEnv);
+                    mArchiveRun.ArchiveRun(strRunName, str3DEnv);
                     break;
                 default:
                     Interaction.MsgBox("error");

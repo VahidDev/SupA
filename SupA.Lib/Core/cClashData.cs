@@ -1,7 +1,7 @@
 ﻿namespace SupA.Lib.Models
 {
     // Use PascalCase for class names
-    public class CClashData
+    public class cClashData
     {
         // Fields should be private and use camelCase
         private float eastingClashBoxCentre;

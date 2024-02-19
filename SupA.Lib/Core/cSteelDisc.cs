@@ -21,7 +21,7 @@ namespace SupA.Lib.Core
         private string pFeatureDesc;
         private string pSpare;
         private string pOwningDiscipline;
-        private string pSuptBeamPerpDirnfromPipeAxis;
+        private int pSuptBeamPerpDirnfromPipeAxis;
         private bool pHasPrecedingNode;
         private bool pHasSucceedingNode;
         private string pExistingConnType;
@@ -168,7 +168,7 @@ namespace SupA.Lib.Core
             set => pOwningDiscipline = value;
         }
 
-        public string SuptBeamPerpDirnfromPipeAxis
+        public int SuptBeamPerpDirnfromPipeAxis
         {
             get => pSuptBeamPerpDirnfromPipeAxis;
             set => pSuptBeamPerpDirnfromPipeAxis = value;

@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using SupA.Lib.Core;
+﻿using SupA.Lib.Core;
 using SupA.Lib.DataManipulation;
 using SupA.Lib.Initialization;
 using SupA.Lib.Utils;
@@ -25,10 +24,10 @@ namespace SupA.Lib.RoutePotentialSuptFrames
             string NodefromName;
             int NodeToNameNo;
             string NodeToName;
-            cGroupNode NodeTo;
+            cGroupNode? NodeTo = null;
             bool InvalidRouteExistsFlag;
             string CurrentBeamStatus;
-            cSteel Beam;
+            cSteel? Beam = null;
             bool DuplicateTieIn;
             bool AdditionalFrameFeasibileCheck;
             float NoOfInvalidRoutesIgnored;

@@ -1,14 +1,7 @@
-﻿namespace SupA.Lib.Core
-{
-    public class TTblExtendedPHASST
-    {
-        public string AnciType { get; set; }
-        public float AnciHeightStd { get; set; }
-        public float AnciHeightMin { get; set; }
-        public float AnciHeightMax { get; set; }
-        public float BeamLenReqd { get; set; }
-    }
+﻿using SupA.Lib.Initialization;
 
+namespace SupA.Lib.Core
+{
     public class cSuptPoints
     {
         private float pEastingSuptPoint;
@@ -19,7 +12,7 @@
         private string pCollSuptPointsinAreaRowNo;
         private string pSupportOpt;
         private string pTubidir;
-        private string pBore;
+        private float pBore;
         private float pEastingSuptPointRounded;
         private float pNorthingSuptPointRounded;
         private float pElSuptPointRounded;
@@ -45,17 +38,17 @@
         private float pDesTempMax;
         private float pBlowdownDurn;
         private float pDesPressMax;
-        private string pAreaSuptSeqNumber;
-        private string pTOSPerpDir1pos;
-        private string pTOSPerpDir2pos;
-        private string pTOSPerpDir1neg;
-        private string pTOSPerpDir2neg;
+        private int pAreaSuptSeqNumber;
+        private float pTOSPerpDir1pos;
+        private float pTOSPerpDir2pos;
+        private float pTOSPerpDir1neg;
+        private float pTOSPerpDir2neg;
         private int pShrdLvlNoinPerpDir1pos;
         private int pShrdLvlNoinPerpDir2pos;
         private int pShrdLvlNoinPerpDir1neg;
         private int pShrdLvlNoinPerpDir2neg;
         private string pChosenShrdLvlDir;
-        private string pBeamLenReqd;
+        private float pBeamLenReqd;
 
         // Let Statement for initial population of Classes
         public void ReadAll(object[] arrToRead)
@@ -68,7 +61,7 @@
             pCollSuptPointsinAreaRowNo = Convert.ToString(arrToRead[5]);
             pSupportOpt = Convert.ToString(arrToRead[6]);
             pTubidir = Convert.ToString(arrToRead[7]);
-            pBore = Convert.ToString(arrToRead[8]);
+            pBore = Convert.ToSingle(arrToRead[8]);
             pEastingSuptPointRounded = Convert.ToSingle(arrToRead[9]);
             pNorthingSuptPointRounded = Convert.ToSingle(arrToRead[10]);
             pElSuptPointRounded = Convert.ToSingle(arrToRead[11]);
@@ -94,17 +87,17 @@
             pDesTempMax = Convert.ToSingle(arrToRead[31]);
             pBlowdownDurn = Convert.ToSingle(arrToRead[32]);
             pDesPressMax = Convert.ToSingle(arrToRead[33]);
-            pAreaSuptSeqNumber = Convert.ToString(arrToRead[34]);
-            pTOSPerpDir1pos = Convert.ToString(arrToRead[35]);
-            pTOSPerpDir2pos = Convert.ToString(arrToRead[36]);
-            pTOSPerpDir1neg = Convert.ToString(arrToRead[37]);
-            pTOSPerpDir2neg = Convert.ToString(arrToRead[38]);
+            pAreaSuptSeqNumber = Convert.ToInt16(arrToRead[34]);
+            pTOSPerpDir1pos = Convert.ToSingle(arrToRead[35]);
+            pTOSPerpDir2pos = Convert.ToSingle(arrToRead[36]);
+            pTOSPerpDir1neg = Convert.ToSingle(arrToRead[37]);
+            pTOSPerpDir2neg = Convert.ToSingle(arrToRead[38]);
             pShrdLvlNoinPerpDir1pos = Convert.ToInt32(arrToRead[39]);
             pShrdLvlNoinPerpDir2pos = Convert.ToInt32(arrToRead[40]);
             pShrdLvlNoinPerpDir1neg = Convert.ToInt32(arrToRead[41]);
             pShrdLvlNoinPerpDir2neg = Convert.ToInt32(arrToRead[42]);
             pChosenShrdLvlDir = Convert.ToString(arrToRead[43]);
-            pBeamLenReqd = Convert.ToString(arrToRead[44]);
+            pBeamLenReqd = Convert.ToSingle(arrToRead[44]);
         }
 
         // WritePhasstData method
@@ -137,8 +130,8 @@
         public string SuptCat => pSuptCat;
         public string CollSuptPointsinAreaRowNo => pCollSuptPointsinAreaRowNo;
         public string SupportOpt => pSupportOpt;
-        public string Tubidir => pTubidir;
-        public string Bore => pBore;
+        public string Tubidir;
+        public float Bore => pBore;
         public float EastingSuptPoint => pEastingSuptPoint;
         public float NorthingSuptPoint => pNorthingSuptPoint;
         public float ElSuptPoint => pElSuptPoint;
@@ -148,11 +141,11 @@
         public string SuptFuncDirX => pSuptFuncDirX;
         public string SuptFuncDirY => pSuptFuncDirY;
         public string SuptFuncDirZ => pSuptFuncDirZ;
-        public bool IncorpintoFrameFlag => pIncorpintoFrameFlag;
+        public bool IncorpintoFrameFlag;
         public string PipeName => pPipeName;
         public string SuptMaturityFlag1 => pSuptMaturityFlag1;
         public string SuptMaturityFlag2 => pSuptMaturityFlag2;
-        public float PipeOD => pPipeOD;
+        public float PipeOD;
         public string AnciType => pAnciType;
         public float AnciHeiStd => pAnciHeiStd;
         public float AnciHeiMin => pAnciHeiMin;
@@ -164,17 +157,17 @@
         public float DesTempMax => pDesTempMax;
         public float BlowdownDurn => pBlowdownDurn;
         public float DesPressMax => pDesPressMax;
-        public string AreaSuptSeqNumber => pAreaSuptSeqNumber;
-        public string TOSPerpDir1pos => pTOSPerpDir1pos;
-        public string TOSPerpDir2pos => pTOSPerpDir2pos;
-        public string TOSPerpDir1neg => pTOSPerpDir1neg;
-        public string TOSPerpDir2neg => pTOSPerpDir2neg;
-        public int ShrdLvlNoinPerpDir1pos => pShrdLvlNoinPerpDir1pos;
-        public int ShrdLvlNoinPerpDir2pos => pShrdLvlNoinPerpDir2pos;
-        public int ShrdLvlNoinPerpDir1neg => pShrdLvlNoinPerpDir1neg;
-        public int ShrdLvlNoinPerpDir2neg => pShrdLvlNoinPerpDir2neg;
+        public int AreaSuptSeqNumber;
+        public float TOSPerpDir1pos;
+        public float TOSPerpDir2pos;
+        public float TOSPerpDir1neg;
+        public float TOSPerpDir2neg;
+        public int ShrdLvlNoinPerpDir1pos;
+        public int ShrdLvlNoinPerpDir2pos;
+        public int ShrdLvlNoinPerpDir1neg;
+        public int ShrdLvlNoinPerpDir2neg;
         public string ChosenShrdLvlDir => pChosenShrdLvlDir;
-        public string BeamLenReqd => pBeamLenReqd;
+        public float BeamLenReqd => pBeamLenReqd;
 
         // Individual Let Properties
         public float EastingSuptPointRoundedProperty
@@ -217,7 +210,7 @@
             set => pTubidir = value;
         }
 
-        public string BoreProperty
+        public float BoreProperty
         {
             set => pBore = value;
         }
@@ -347,27 +340,27 @@
             set => pDesPressMax = value;
         }
 
-        public string AreaSuptSeqNumberProperty
+        public int AreaSuptSeqNumberProperty
         {
             set => pAreaSuptSeqNumber = value;
         }
 
-        public string TOSPerpDir1posProperty
+        public float TOSPerpDir1posProperty
         {
             set => pTOSPerpDir1pos = value;
         }
 
-        public string TOSPerpDir2posProperty
+        public float TOSPerpDir2posProperty
         {
             set => pTOSPerpDir2pos = value;
         }
 
-        public string TOSPerpDir1negProperty
+        public float TOSPerpDir1negProperty
         {
             set => pTOSPerpDir1neg = value;
         }
 
-        public string TOSPerpDir2negProperty
+        public float TOSPerpDir2negProperty
         {
             set => pTOSPerpDir2neg = value;
         }
@@ -397,7 +390,7 @@
             set => pChosenShrdLvlDir = value;
         }
 
-        public string BeamLenReqdProperty
+        public float BeamLenReqdProperty
         {
             set => pBeamLenReqd = value;
         }

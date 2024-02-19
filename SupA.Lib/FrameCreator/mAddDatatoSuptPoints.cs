@@ -5,16 +5,6 @@ namespace SupA.Lib.FrameCreator
 {
     public class mAddDatatoSuptPoints
     {
-        public struct SuptPoints
-        {
-            public double Bore { get; set; }
-            public double InsuThk { get; set; }
-            public double DesTempMin { get; set; }
-            public double DesTempMax { get; set; }
-            public object WritePhasstData { get; set; }
-            public double PipeOD { get; set; }
-        }
-
         public struct ExtendedPHASST
         {
             public double PipeRangeMaxNB { get; set; }

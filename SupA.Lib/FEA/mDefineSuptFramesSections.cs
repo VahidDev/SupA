@@ -2,6 +2,7 @@
 using Microsoft.Office.Interop.Excel;
 using SupA.Lib.Initialization;
 using SupA.Lib.Core;
+using SupA.Lib.DataManipulation;
 
 namespace SupA.Lib.FEA
 {
@@ -42,7 +43,7 @@ namespace SupA.Lib.FEA
             string pubstrFolderPath = @"C:\Your\Public\Folder\Path\"; // Update with your actual folder path
             string supOutputFolder = Path.Combine(pubstrFolderPath, "SupAOutput");
 
-            Directory.CreateDirectory(Path.Combine(supOutputFolder, $"Frame{suptGroupNo + SuptGroupNoMod}", "STAAD"));
+            Directory.CreateDirectory(Path.Combine(supOutputFolder, $"Frame{suptGroupNo + mSubInitializationSupA.SuptGroupNoMod}", "STAAD"));
 
             // Loop through each frame
             while (frameC < collPotlSuptFrameDetails.Count)
@@ -103,7 +104,7 @@ namespace SupA.Lib.FEA
             }
 
             // Export frames that didn't pass
-            ExportColltoCSVFile(collPotlSuptFrameDetails, $"CollFEAFailPotlSuptFrameDetails-Beams-F{suptGroupNo + SuptGroupNoMod}.csv", "WriteAllBeamsinFrame");
+            mExportColltoCSVFile<cPotlSupt>.ExportColltoCSVFile(collPotlSuptFrameDetails, $"CollFEAFailPotlSuptFrameDetails-Beams-F{suptGroupNo + mSubInitializationSupA.SuptGroupNoMod}.csv", "WriteAllBeamsinFrame");
         }
 
         public static void ExportFEMresults(cPotlSupt Frame, int SuptGroupNo)
@@ -114,12 +115,12 @@ namespace SupA.Lib.FEA
             // Export beam property types
             RangeRowEnd = FindLastFullCell("Output", 11, 6);
             TmpExportArr = Interaction.CallByName(Sheets("Output").Range("E11:K" + RangeRowEnd), "value", CallType.Get);
-            ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + SuptGroupNoMod) + "\\EndofBeamOutput-" + Frame.PotlSuptNo, "csv", true);
+            ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\EndofBeamOutput-" + Frame.PotlSuptNo, "csv", true);
 
             // Export node coordinates
             RangeRowEnd = FindLastFullCell("Output", 10, 14);
             TmpExportArr = Interaction.CallByName(Sheets("Output").Range("N10:AA" + RangeRowEnd), "value", CallType.Get);
-            ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + SuptGroupNoMod) + "\\AlongBeamOutput-" + Frame.PotlSuptNo, "csv", true);
+            ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\AlongBeamOutput-" + Frame.PotlSuptNo, "csv", true);
         }
 
         public static int FindLastFullCell(string Sheetname, int RowNo, int ColNo)

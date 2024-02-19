@@ -1,6 +1,8 @@
-﻿namespace SupA.Lib.Core
+﻿using SupA.Lib.Initialization;
+
+namespace SupA.Lib.Core
 {
-    public class TubeDefDisc
+    public class cTubeDefDisc
     {
         // Fields
         private string pTubeName;
@@ -38,9 +40,9 @@
         public float East => pEast;
         public float North => pNorth;
         public float Upping => pUpping;
-        public float EastRounded => RoundDecPlc(pEast, pubIntDiscretisationStepDecPlaces);
-        public float NorthRounded => RoundDecPlc(pNorth, pubIntDiscretisationStepDecPlaces);
-        public float UppingRounded => RoundDecPlc(pUpping, pubIntDiscretisationStepDecPlaces);
+        public float EastRounded => mPublicVarDefinitions.RoundDecPlc(pEast, mSubInitializationSupA.pubIntDiscretisationStepDecPlaces);
+        public float NorthRounded => mPublicVarDefinitions.RoundDecPlc(pNorth, mSubInitializationSupA.pubIntDiscretisationStepDecPlaces);
+        public float UppingRounded => mPublicVarDefinitions.RoundDecPlc(pUpping, mSubInitializationSupA.pubIntDiscretisationStepDecPlaces);
         public string DiscClassification => pDiscClassification;
         public string NameofPipe => pNameofPipe;
         public float HoriOffsetfromStlMin => pHoriOffsetfromStlMin;
@@ -55,8 +57,8 @@
             pTubeName = value.TubeName;
             pTubeType = value.TubeType;
             pComponentRef = value.ComponentRef;
-            pABor = value.abor;
-            pLBor = value.lbor;
+            pABor = value.ABor;
+            pLBor = value.LBor;
             pDir = value.ADir;
             pDiscClassification = value.DiscClassification;
             pNameofPipe = value.NameofPipe;

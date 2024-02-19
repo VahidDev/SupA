@@ -2,7 +2,7 @@
 {
     public class mArchiveRun
     {
-        public void ArchiveRun(string runName, string str3DEnv)
+        public static void ArchiveRun(string runName, string str3DEnv)
         {
             int runNumber = 0;
             string runFolderPath = "YourFolderPathHere";
@@ -54,7 +54,7 @@
             }
         }
 
-        private void CopyFolder(string sourceFolder, string destinationFolder)
+        private static void CopyFolder(string sourceFolder, string destinationFolder)
         {
             if (!Directory.Exists(destinationFolder))
             {
