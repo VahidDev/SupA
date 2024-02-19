@@ -8,6 +8,30 @@
         private DateTime activityEnd;
         private TimeSpan activityDuration;
 
+        public string ActivityLogTxt
+        {
+            get { return activityLogTxt; }
+            set { activityLogTxt = value; }
+        }
+
+        public DateTime ActivityStart
+        {
+            get { return activityStart; }
+            set { activityStart = value; }
+        }
+
+        public DateTime ActivityEnd
+        {
+            get { return activityEnd; }
+            set { activityEnd = value; }
+        }
+
+        public TimeSpan ActivityDuration
+        {
+            get { return activityDuration; }
+            set { activityDuration = value; }
+        }
+
         // Let Statement for initial population of Classes and for copying a class instance
         public void ReadAll(object[] arrToRead)
         {
@@ -22,17 +46,5 @@
         {
             return $"{activityLogTxt},{activityStart},{activityEnd},{activityDuration}";
         }
-
-        // Get Properties
-        public string GetActivityLogTxt() => activityLogTxt;
-        public DateTime GetActivityStart() => activityStart;
-        public DateTime GetActivityEnd() => activityEnd;
-        public TimeSpan GetActivityDuration() => activityDuration;
-
-        // Let Properties
-        public void SetActivityLogTxt(string value) => activityLogTxt = value;
-        public void SetActivityStart(DateTime value) => activityStart = value;
-        public void SetActivityEnd(DateTime value) => activityEnd = value;
-        public void SetActivityDuration(TimeSpan value) => activityDuration = value;
     }
 }
