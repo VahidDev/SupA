@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using SupA.Lib.Core;
+using System.Reflection;
 
 namespace SupA.Lib.Utils
 {
@@ -44,6 +45,29 @@ namespace SupA.Lib.Utils
             }
 
             throw new MissingMemberException($"Member '{procName}' not found in type '{type.FullName}'.");
+        }
+
+        public static string GetPropertyValue(cGroupNode groupNode, string propertyName)
+        {
+            // Get the type of the object (cGroupNode)
+            Type type = typeof(cGroupNode);
+
+            // Get the PropertyInfo for the specified property name
+            PropertyInfo propertyInfo = type.GetProperty(propertyName);
+
+            // If propertyInfo is null, the property doesn't exist
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException($"Property '{propertyName}' does not exist in type '{type.Name}'.");
+            }
+
+            // Get the value of the property for the given object (groupNode)
+            object value = propertyInfo.GetValue(groupNode);
+
+            // Convert the value to string
+            string propertyValue = Convert.ToString(value);
+
+            return propertyValue;
         }
     }
 }

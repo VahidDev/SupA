@@ -123,18 +123,18 @@ namespace SupA.Lib.Core
         }
 
         // Get Properties
-        public float EastingSuptPointRounded => pEastingSuptPointRounded;
-        public float NorthingSuptPointRounded => pNorthingSuptPointRounded;
-        public float ElSuptPointRounded => pElSuptPointRounded;
+        public float EastingSuptPointRounded;
+        public float NorthingSuptPointRounded;
+        public float ElSuptPointRounded;
         public string TubiName => pTubiName;
         public string SuptCat => pSuptCat;
         public string CollSuptPointsinAreaRowNo => pCollSuptPointsinAreaRowNo;
         public string SupportOpt => pSupportOpt;
         public string Tubidir;
         public float Bore => pBore;
-        public float EastingSuptPoint => pEastingSuptPoint;
-        public float NorthingSuptPoint => pNorthingSuptPoint;
-        public float ElSuptPoint => pElSuptPoint;
+        public float EastingSuptPoint;
+        public float NorthingSuptPoint;
+        public float ElSuptPoint;
         public float SuptLoadFx => pSuptLoadFx;
         public float SuptLoadFy => pSuptLoadFy;
         public float SuptLoadFz => pSuptLoadFz;

@@ -36,8 +36,8 @@ namespace SupA.Lib.FrameCreator
             // Now work through all the supports in the group and identify what are the lower and upper limits of a box surrounding them
             foreach (var suptItem in collAdjacentSuptPoints)
             {
-                suptCoordArrLL = mCreateCoordArray.CreateCoordArray(suptItem, "cSuptPoints", ReturnAdjStlSearchBoxDefinedinENU("negative", perpAxis1No, perpAxis2No, parlAxisNo));
-                suptCoordArrUL = mCreateCoordArray.CreateCoordArray(suptItem, "cSuptPoints", ReturnAdjStlSearchBoxDefinedinENU("positive", perpAxis1No, perpAxis2No, parlAxisNo));
+                suptCoordArrLL = mCreateCoordArray.CreateCoordArray(suptItem, "cSuptPoints", null, 0, 0, 0, mCollectLocalExistingDiscSteel.ReturnAdjStlSearchBoxDefinedinENU("negative", perpAxis1No, perpAxis2No, parlAxisNo));
+                suptCoordArrUL = mCreateCoordArray.CreateCoordArray(suptItem, "cSuptPoints", null, 0, 0, 0, mCollectLocalExistingDiscSteel.ReturnAdjStlSearchBoxDefinedinENU("positive", perpAxis1No, perpAxis2No, parlAxisNo));
                 coordArrLL[0] = Math.Min(suptCoordArrLL[0], coordArrLL[0]);
                 coordArrLL[1] = Math.Min(suptCoordArrLL[1], coordArrLL[1]);
                 coordArrLL[2] = Math.Min(suptCoordArrLL[2], coordArrLL[2]);

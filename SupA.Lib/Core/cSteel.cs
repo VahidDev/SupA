@@ -54,7 +54,7 @@
         public float EndN { get => pEndN; set => pEndN = value; }
         public float EndU { get => pEndU; set => pEndU = value; }
         public float Length { get => pLength; set => pLength = value; }
-        public string Dir { get => pDir; set => pDir = value; }
+        public string Dir;
         public string SuptNosonBeam { get => pSuptNosonBeam; set => pSuptNosonBeam = value; }
         public string PrelimSctnReqd { get => pPrelimSctnReqd; set => pPrelimSctnReqd = value; }
         public float SctnDepth { get => pSctnDepth; set => pSctnDepth = value; }
@@ -74,8 +74,8 @@
         public string Jusline { get => pJusline; set => pJusline = value; }
         public string Bangle { get => pBangle; set => pBangle = value; }
         public string Ori { get => pOri; set => pOri = value; }
-        public string MinorAxisGlobaldir { get => pMinorAxisGlobaldir; set => pMinorAxisGlobaldir = value; }
-        public string MajorAxisGlobaldir { get => pMajorAxisGlobaldir; set => pMajorAxisGlobaldir = value; }
+        public string MinorAxisGlobaldir;
+        public string MajorAxisGlobaldir;
         public float StartERounded { get => pStartERounded; set => pStartERounded = value; }
         public float StartNRounded { get => pStartNRounded; set => pStartNRounded = value; }
         public float StartURounded { get => pStartURounded; set => pStartURounded = value; }

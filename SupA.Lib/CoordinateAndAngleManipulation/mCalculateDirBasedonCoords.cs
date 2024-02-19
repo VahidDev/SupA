@@ -10,7 +10,7 @@
 
         public class CoordinateCalculator
         {
-            public string CalculateDirBasedonCoords(float StartE = 0, float StartN = 0, float StartU = 0,
+            public static string CalculateDirBasedonCoords(float StartE = 0, float StartN = 0, float StartU = 0,
                                                      float EndE = 0, float EndN = 0, float EndU = 0,
                                                      float[] StartArr = null, float[] EndArr = null)
             {
