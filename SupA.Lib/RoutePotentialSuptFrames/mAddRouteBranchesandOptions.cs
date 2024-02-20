@@ -173,7 +173,7 @@ namespace SupA.Lib.RoutePotentialSuptFrames
                         NoOfInvalidRoutesIgnored = SupAProgressBar.SupAInvalidRoutesBypassedCount + 1;
                         SupAProgressBar.SupAInvalidRoutesBypassedCount = NoOfInvalidRoutesIgnored;
                         CollInvalidPotlSuptFrameDetails.Add(NewPotlSuptFrame);
-                        DoEvents();
+                        //DoEvents();
                     }
                     else
                     {
@@ -187,7 +187,7 @@ namespace SupA.Lib.RoutePotentialSuptFrames
                         {
                             NoofClosedRoutesWithTieIns = NoofClosedRoutesWithTieIns + 1;
                             SupAProgressBar.SupANoofClosed = NoofClosedRoutesWithTieIns;
-                            DoEvents();
+                            //DoEvents();
                         }
                     }
                     NewPotlSuptFrame.DirnsUntravelled = new Collection<object>();

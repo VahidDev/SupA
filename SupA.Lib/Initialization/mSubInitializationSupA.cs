@@ -41,7 +41,7 @@ namespace SupA.Lib.Initialization
         public static float pubFabricationHours;
         public static float pubmanHourCost;
         public static int SuptGroupNoMod;
-        public static CLogEntry pubLogEntry;
+        public static cLogEntry pubLogEntry;
         public static Collection<object> pubActivityLog; // Assuming Collection is a custom type or using System.Collections.ObjectModel
 
         // Functions for supt point selection
@@ -50,7 +50,7 @@ namespace SupA.Lib.Initialization
         public static object[,] pubArrSuptPointEvalMatrix; // Variant array in VB.NET is closest to object[,] in C#
         public static int pubNoofCategories;
 
-        public void SubInitilisationSupA(string StartMode = "")
+        public async Task SubInitilisationSupA(string StartMode = "")
         {
             string strDirFolder;
             string strRunName;
@@ -83,11 +83,11 @@ namespace SupA.Lib.Initialization
             pubNoofCategories = Convert.ToInt32(activeWorkbook.Sheets["SheetName"].Range["NoofCategories"].Value); // Replace "SheetName" with actual sheet name
 
             // This is temporary code
-            SupAProgressBar.Show(); // Commented out as WinForms ProgressBar is not directly equivalent to VBA UserForm
-            Application.DoEvents();
+            //SupAProgressBar.Show(); // Commented out as WinForms ProgressBar is not directly equivalent to VBA UserForm
+            //Application.DoEvents();
 
             // Activity Log Tracking
-            WriteActivityLog("Load all Variables for SupA", DateTime.Now);
+            mWriteActivityLog.WriteActivityLog("Load all Variables for SupA", DateTime.Now);
 
             // Now call the relevant SupA module based on the value of StrSuptSelectionMode
             switch (pubStrSuptSelectionMode)

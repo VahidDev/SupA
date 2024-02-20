@@ -4,14 +4,16 @@ namespace SupA.Lib.DataManipulation
 {
     public class mWriteActivityLog
     {
-        private CLogEntry pubLogEntry;
-        private List<CLogEntry> pubActivityLog = new List<CLogEntry>();
+        public static List<cLogEntry> ActivityLog = new List<cLogEntry>();
+        public static cLogEntry CurrentLogEntry;
 
-        public void WriteActivityLog(string activityLogTxt, DateTime timeNow, string runMode = "")
+        public static void WriteActivityLog(string activityLogTxt, DateTime timeNow, string runMode = "")
         {
+            // Check if it's the first entry
             if (runMode == "first entry")
             {
-                pubLogEntry = new CLogEntry
+                // Create a new log entry
+                CurrentLogEntry = new cLogEntry
                 {
                     ActivityLogTxt = activityLogTxt,
                     ActivityStart = timeNow
@@ -19,20 +21,21 @@ namespace SupA.Lib.DataManipulation
             }
             else
             {
-                if (pubLogEntry != null)
+                // Set end time to now
+                CurrentLogEntry.ActivityEnd = timeNow;
+
+                // Calculate activity duration
+                CurrentLogEntry.ActivityDuration = CurrentLogEntry.ActivityEnd - CurrentLogEntry.ActivityStart;
+
+                // Add the log entry to the activity log
+                ActivityLog.Add(CurrentLogEntry);
+
+                // Start a new log entry
+                CurrentLogEntry = new cLogEntry
                 {
-                    pubLogEntry.ActivityEnd = timeNow;
-                    // Automatically calculates duration within the LogEntry class
-
-                    pubActivityLog.Add(pubLogEntry);
-
-                    // Start a new log entry
-                    pubLogEntry = new CLogEntry
-                    {
-                        ActivityLogTxt = activityLogTxt,
-                        ActivityStart = timeNow
-                    };
-                }
+                    ActivityLogTxt = activityLogTxt,
+                    ActivityStart = timeNow
+                };
             }
         }
     }

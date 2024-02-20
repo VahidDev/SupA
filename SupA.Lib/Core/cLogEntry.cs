@@ -1,6 +1,6 @@
 ﻿namespace SupA.Lib.Core
 {
-    public class CLogEntry
+    public class cLogEntry
     {
         // Fields should be private and use camelCase
         private string activityLogTxt;
