@@ -3,14 +3,6 @@
     // Use PascalCase for class names
     public class cClashData
     {
-        // Fields should be private and use camelCase
-        private float eastingClashBoxCentre;
-        private float northingClashBoxCentre;
-        private float uppingClashBoxCentre;
-        private float clashBoxSize;
-        private string elesWithinClashBox;
-        private string typesWithinClashBox;
-        private string discsWithinClashBox;
 
         // Let Properties
         public void ReadAll(object[] arrToRead)
@@ -30,22 +22,54 @@
             return $"{eastingClashBoxCentre},{northingClashBoxCentre},{uppingClashBoxCentre},{clashBoxSize},{elesWithinClashBox},{typesWithinClashBox},{discsWithinClashBox}";
         }
 
-        // Get Properties
+        private float eastingClashBoxCentre;
         public float EastingClashBoxCentre => eastingClashBoxCentre;
         public float NorthingClashBoxCentre => northingClashBoxCentre;
         public float UppingClashBoxCentre => uppingClashBoxCentre;
         public float ClashBoxSize => clashBoxSize;
-        public string ElesWithinClashBox => elesWithinClashBox;
-        public string TypesWithinClashBox => typesWithinClashBox;
-        public string DiscsWithinClashBox => discsWithinClashBox;
+        public string DiscsWithinClashBox { get => discsWithinClashBox; set => discsWithinClashBox = value; }
 
-        // Let Properties
-        public float EastingClashBoxCentreProp { set => eastingClashBoxCentre = value; }
-        public float NorthingClashBoxCentreProp { set => northingClashBoxCentre = value; }
-        public float UppingClashBoxCentreProp { set => uppingClashBoxCentre = value; }
-        public float ClashBoxSizeProp { set => clashBoxSize = value; }
-        public string ElesWithinClashBoxProp { set => elesWithinClashBox = value; }
-        public string TypesWithinClashBoxProp { set => typesWithinClashBox = value; }
-        public string DiscsWithinClashBoxProp { set => discsWithinClashBox = value; }
+        private float northingClashBoxCentre;
+        public float NorthingClashBoxCentreProp
+        {
+            get => northingClashBoxCentre;
+            set => northingClashBoxCentre = value;
+        }
+
+        private float uppingClashBoxCentre;
+        public float UppingClashBoxCentreProp
+        {
+            get => uppingClashBoxCentre;
+            set => uppingClashBoxCentre = value;
+        }
+
+        private float clashBoxSize;
+        public float ClashBoxSizeProp
+        {
+            get => clashBoxSize;
+            set => clashBoxSize = value;
+        }
+
+        private string elesWithinClashBox;
+        public string ElesWithinClashBox
+        {
+            get => elesWithinClashBox;
+            set => elesWithinClashBox = value;
+        }
+
+        private string typesWithinClashBox;
+        public string TypesWithinClashBox
+        {
+            get => typesWithinClashBox;
+            set => typesWithinClashBox = value;
+        }
+
+        private string discsWithinClashBox;
+        public string DiscsWithinClashBoxProp
+        {
+            get => discsWithinClashBox;
+            set => discsWithinClashBox = value;
+        }
+
     }
 }
