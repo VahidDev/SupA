@@ -58,7 +58,7 @@ namespace SupA.Lib.DataManipulation
             // is collect existing steel and existing concrete specific to each of these tubes as this is a more efficient way of executing the code
 
             var PipeforSupporting = new cTubeDef();
-            CollPipeforSupporting = ImportCSVFiletoColl(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",
+            CollPipeforSupporting = ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",
             ".csv", ",", PipeforSupporting, typeof(cTubeDef));
 
             // Let's loop through and support one tube at a time
