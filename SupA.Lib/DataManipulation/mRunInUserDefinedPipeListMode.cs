@@ -5,21 +5,17 @@ namespace SupA.Lib.DataManipulation
 {
     public class mRunInUserDefinedPipeListMode
     {
-        // Placeholder class definitions to mirror VBA types
-        public class Collection<T> : List<T> { }
-
         // Global variables equivalent
-        private Collection<cTubeDef> CollPipeforSupporting = new Collection<cTubeDef>();
-        private Collection<cSteel> CollExistingSteel = new Collection<cSteel>();
-        private Collection<cSteelDisc> CollExistingSteelDisc = new Collection<cSteelDisc>();
-        private Collection<cSteel> CollExistingConcrete = new Collection<cSteel>();
-        private Collection<object> CollSelectedSuptLocns = new Collection<object>();
-        private Collection<object> CollAllSuptPointScores = new Collection<object>();
-        private Collection<object> CollAllSelectedSuptLocns = new Collection<object>();
-        private Collection<object> CollPipeforSupportingInd = new Collection<object>();
-        private Collection<object> CollExistingSteelforTubi = new Collection<object>();
+        private List<cTubeDef> CollPipeforSupporting = new List<cTubeDef>();
+        private List<cSteel> CollExistingSteel = new List<cSteel>();
+        private List<cSteelDisc> CollExistingSteelDisc = new List<cSteelDisc>();
+        private List<cSteel> CollExistingConcrete = new List<cSteel>();
+        private List<object> CollSelectedSuptLocns = new List<object>();
+        private List<object> CollAllSuptPointScores = new List<object>();
+        private List<object> CollAllSelectedSuptLocns = new List<object>();
+        private List<object> CollPipeforSupportingInd = new List<object>();
+        private List<object> CollExistingSteelforTubi = new List<object>();
         private cTubeDef TubiforLocalSteelColl;
-        private int I;
 
         public void RunInUserDefinedPipeListMode()
         {
@@ -46,7 +42,7 @@ namespace SupA.Lib.DataManipulation
                 CollPipeforSupporting = ImportCSVFiletoColl<cTubeDef>(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData", ',', new cTubeDef());
 
                 // Then split the Area-ExistingSteelData into a collection of csv files (one per tubi)
-                for (I = 1; I <= CollPipeforSupporting.Count; I++)
+                for (var I = 1; I <= CollPipeforSupporting.Count; I++)
                 {
                     CollExistingSteelforTubi = mRedEntireStruModtoLocaltoTubi.RedEntireStruModtoLocaltoTubi(CollExistingSteel, CollPipeforSupporting[I - 1]);
                     mExportColltoCSVFile<cSteel>.ExportColltoCSVFile(CollExistingSteelforTubi, "SuptPointSelMode\\Area-ExistingSteelData-" + I, "csv");
@@ -58,14 +54,16 @@ namespace SupA.Lib.DataManipulation
             // is collect existing steel and existing concrete specific to each of these tubes as this is a more efficient way of executing the code
 
             var PipeforSupporting = new cTubeDef();
-            CollPipeforSupporting = ImportCSVFiletoColl(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",
+            CollPipeforSupporting = ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",
             ".csv", ",", PipeforSupporting, typeof(cTubeDef));
 
             // Let's loop through and support one tube at a time
             for (int I = 1; I <= CollPipeforSupporting.Count; I++)
             {
-                CollPipeforSupportingInd = new Collection<cTubeDef>();
-                CollPipeforSupportingInd.Add(CollPipeforSupporting[I]);
+                CollPipeforSupportingInd = new List<cTubeDef>
+                {
+                    CollPipeforSupporting[I]
+                };
 
                 // Import the steel specific concrete definition file
                 var Existingsteel = new cSteel();
