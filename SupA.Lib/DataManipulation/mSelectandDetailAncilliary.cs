@@ -1,4 +1,5 @@
 ﻿using SupA.Lib.Core;
+using SupA.Lib.Initialization;
 
 namespace SupA.Lib.DataManipulation
 {
@@ -18,19 +19,19 @@ namespace SupA.Lib.DataManipulation
             var Supt = new cSuptPoints();
             WriteDatatoSuptLocn(Supt, SelSuptLocnTube);
 
-            for (int i = 0; i < pubTblExtendedPHASST.GetLength(0); i++)
+            for (int i = 0; i < mSubInitializationSupA.pubTblExtendedPHASST.GetLength(0); i++)
             {
-                if (Supt.Bore <= pubTblExtendedPHASST[i, 0].PipeRangeMaxNB && Supt.Bore >= pubTblExtendedPHASST[i, 0].PipeRangeMinNB
-                    && Supt.InsuThk <= pubTblExtendedPHASST[i, 0].InsuThkMax && Supt.InsuThk >= pubTblExtendedPHASST[i, 0].InsuThkMin
-                    && Supt.DesTempMin >= pubTblExtendedPHASST[i, 0].MinDesTemp
-                    && Supt.DesTempMax <= pubTblExtendedPHASST[i, 0].MaxDesTemp)
+                if (Supt.Bore <= mSubInitializationSupA.pubTblExtendedPHASST[i].PipeRangeMaxNB && Supt.Bore >= mSubInitializationSupA.pubTblExtendedPHASST[i].PipeRangeMinNB
+                    && Supt.InsuThk <= mSubInitializationSupA.pubTblExtendedPHASST[i].InsuThkMax && Supt.InsuThk >= mSubInitializationSupA.pubTblExtendedPHASST[i].InsuThkMin
+                    && Supt.DesTempMin >= mSubInitializationSupA.pubTblExtendedPHASST[i].MinDesTemp
+                    && Supt.DesTempMax <= mSubInitializationSupA.pubTblExtendedPHASST[i].MaxDesTemp)
                 {
-                    Supt.WritePhasstData = pubTblExtendedPHASST[i, 0];
+                    Supt.WritePhasstData(mSubInitializationSupA.pubTblExtendedPHASST[i]);
                     break;
                 }
             }
 
-            foreach (var pipeDimn in pubTblPipeDimns)
+            foreach (var pipeDimn in mSubInitializationSupA.pubTblPipeDimns)
             {
                 if (Supt.Bore == pipeDimn.NB)
                 {

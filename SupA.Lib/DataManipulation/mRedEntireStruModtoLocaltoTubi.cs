@@ -4,7 +4,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mRedEntireStruModtoLocaltoTubi
     {
-        public List<cSteel> RedEntireStruModtoLocaltoTubi(List<cSteel> collExistingSteel, cTubeDef tubiForLocalSteelColl)
+        public static List<cSteel> RedEntireStruModtoLocaltoTubi(List<cSteel> collExistingSteel, cTubeDef tubiForLocalSteelColl)
         {
             cSteel existingSteel;
             cSuptPoints suptPoint; // Assuming this is used somewhere not shown in the snippet

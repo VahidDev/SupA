@@ -1,4 +1,5 @@
-﻿using SupA.Lib.Core;
+﻿using SupA.Lib.BuildSupportFrameWorkOptions;
+using SupA.Lib.Core;
 using SupA.Lib.DataManipulation;
 using SupA.Lib.Initialization;
 
@@ -33,7 +34,7 @@ namespace SupA.Lib.FrameCreator
             // Calculate the centre point of our supports.
             // This is used to make sure there is a group and intersection Node at this point
             // so that we can correctly detail T-posts.
-            cSuptPoints suptPointEffectiveCentre = SetEffectiveCentreofAdjacentSupts(collAdjacentSuptPoints);
+            cSuptPoints suptPointEffectiveCentre = mGroupSimilarFrameNodes.SetEffectiveCentreofAdjacentSupts(collAdjacentSuptPoints);
 
             // Now create the collection of horizontal beams required to support these pipes
             collSuptBeams = CreateMinSuptBeams(collAdjacentSuptPoints, arrNoofLevels, noofSuptBeamEndCoords, suptGroupNo);

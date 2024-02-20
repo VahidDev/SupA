@@ -49,7 +49,7 @@ namespace SupA.Lib.FEA
             while (frameC < collPotlSuptFrameDetails.Count)
             {
                 frame = collPotlSuptFrameDetails[frameC];
-                List<string> collAcceptableSctnsProps = new List<string>();
+                List<TTblSectionProperties> collAcceptableSctnsProps = new List<TTblSectionProperties>();
                 bool beamAvailableforLoads = false;
 
                 // Create the FEM Model Geometry
@@ -93,7 +93,7 @@ namespace SupA.Lib.FEA
                     else
                     {
                         // Select the best potential support
-                        SelectBestPotlSupt(collAcceptableSctnsProps, frame);
+                        mSelectBestPotlSupt.SelectBestPotlSupt(collAcceptableSctnsProps, frame);
 
                         // Create STAAD input file with selected section
                         CreateFEModelGeometry(frame, collAdjacentSuptPoints, out _, out _, suptGroupNo, out stdFile);
@@ -326,7 +326,10 @@ namespace SupA.Lib.FEA
 
     public class TTblSectionProperties
     {
+        public string ProfileStandard;
         public string ProfileName;
+        public string ProfileFamily;
+        public string ProfileThreeDModelNm;
         public double Area;
         public double MajAxisSecondMofA;
         public double MinAxisSecondMofA;
@@ -339,6 +342,7 @@ namespace SupA.Lib.FEA
         public string STAADSctnname;
         public double Width;
         public double Depth;
+        public double Weight;
         public double Rotation;
     }
 }

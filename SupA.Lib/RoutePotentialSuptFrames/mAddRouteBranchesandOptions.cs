@@ -97,7 +97,7 @@ namespace SupA.Lib.RoutePotentialSuptFrames
                             }
                         }
 
-                        NodeToName = Convert.ToString(VbaInterop.CallByName(CollFrameNodeMapGrouped[NodeFromNameNo], "Conn" + CurrentDirnofTravel + "Dir", VbGet));
+                        NodeToName = Convert.ToString(VbaInterop.CallByName(CollFrameNodeMapGrouped[NodeFromNameNo], "Conn" + CurrentDirnofTravel + "Dir", VbCallType.Get));
 
                         for (NodeToNameNo = 1; NodeToNameNo <= CollFrameNodeMapGrouped.Count; NodeToNameNo++)
                         {
@@ -190,12 +190,12 @@ namespace SupA.Lib.RoutePotentialSuptFrames
                             //DoEvents();
                         }
                     }
-                    NewPotlSuptFrame.DirnsUntravelled = new Collection<object>();
+                    NewPotlSuptFrame.DirnsUntravelled = new List<object>();
                 }
             }
         }
 
-        public bool EnsureNodetoIsUniqueinPathsUntravelled(Collection<object> PathsUnTravelled, cGroupNode NodeTo)
+        public bool EnsureNodetoIsUniqueinPathsUntravelled(List<object> PathsUnTravelled, cGroupNode NodeTo)
         {
             bool isUnique = true;
             foreach (cGroupNode GroupNode in PathsUnTravelled)
@@ -282,17 +282,17 @@ namespace SupA.Lib.RoutePotentialSuptFrames
                 NewPotlSuptFrame.DirnsUntravelled.Add(mem);
             }
 
-            foreach (object mem in CurrPotlSuptFrame.GroupNodesTravelled)
+            foreach (var mem in CurrPotlSuptFrame.GroupNodesTravelled)
             {
                 NewPotlSuptFrame.GroupNodesTravelled.Add(mem);
             }
 
-            foreach (object mem in CurrPotlSuptFrame.GroupNodesinFrame)
+            foreach (var mem in CurrPotlSuptFrame.GroupNodesinFrame)
             {
                 NewPotlSuptFrame.GroupNodesinFrame.Add(mem);
             }
 
-            foreach (object mem in CurrPotlSuptFrame.BeamsinFrame)
+            foreach (var mem in CurrPotlSuptFrame.BeamsinFrame)
             {
                 NewPotlSuptFrame.BeamsinFrame.Add(mem);
             }

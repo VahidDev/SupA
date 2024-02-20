@@ -1,12 +1,13 @@
 ﻿using SupA.Lib.Core;
+using SupA.Lib.FEA;
 
 namespace SupA.Lib.DataManipulation
 {
     public class mSelectBestPotlSupt
     {
-        private List<TTblSectionProperties> TblPreferredSctnsProps; // Assuming this list is initialized elsewhere
+        private static List<TTblSectionProperties> TblPreferredSctnsProps; // Assuming this list is initialized elsewhere
 
-        public void SelectBestPotlSupt(List<TTblSectionProperties> collAcceptableSctnsProps, PotlSupt frame)
+        public static void SelectBestPotlSupt(List<TTblSectionProperties> collAcceptableSctnsProps, cPotlSupt frame)
         {
             float snglLightestWeight = 999999;
             TTblSectionProperties tblLightestSctnProp = null;
@@ -19,7 +20,7 @@ namespace SupA.Lib.DataManipulation
                 foreach (var beam in frame.BeamsinFrame)
                 {
                     WriteSctnPropToBeam(beam, preferredSctnProp);
-                    frame.WeightCalculated += beam.Length * preferredSctnProp.Weight;
+                    frame.WeightCalculated += beam.Length * (float)preferredSctnProp.Weight;
                 }
 
                 if (frame.WeightCalculated <= snglLightestWeight)
@@ -35,25 +36,25 @@ namespace SupA.Lib.DataManipulation
                 foreach (var beam in frame.BeamsinFrame)
                 {
                     WriteSctnPropToBeam(beam, tblLightestSctnProp);
-                    frame.WeightCalculated += beam.Length * tblLightestSctnProp.Weight;
+                    frame.WeightCalculated += beam.Length * (float)tblLightestSctnProp.Weight;
                 }
             }
         }
 
-        private TTblSectionProperties InitPreferredSctnProp(string currentSection)
+        private static TTblSectionProperties InitPreferredSctnProp(string currentSection)
         {
             return TblPreferredSctnsProps.FirstOrDefault(x => x.STAADSctnname == currentSection);
         }
 
-        private void WriteSctnPropToBeam(cSteel beam, TTblSectionProperties preferredSctnProp)
+        private static void WriteSctnPropToBeam(cSteel beam, TTblSectionProperties preferredSctnProp)
         {
             beam.MemType = preferredSctnProp.ProfileName;
             beam.MemTypeGeneric = preferredSctnProp.ProfileFamily;
             beam.MemTypeModelRef = preferredSctnProp.ProfileThreeDModelNm;
-            beam.SctnDepth = preferredSctnProp.Depth;
-            beam.SctnWidth = preferredSctnProp.Width;
+            beam.SctnDepth = (float)preferredSctnProp.Depth;
+            beam.SctnWidth = (float)preferredSctnProp.Width;
             beam.STAADSctnName = preferredSctnProp.STAADSctnname;
-            beam.UnitWeightKgm = preferredSctnProp.Weight * 1000;
+            beam.UnitWeightKgm = (float)(preferredSctnProp.Weight * 1000);
         }
     }
 }

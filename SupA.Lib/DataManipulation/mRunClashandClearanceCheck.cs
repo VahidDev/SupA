@@ -17,8 +17,8 @@ namespace SupA.Lib.DataManipulation
 
             foreach (var clashData in collLocalClashData)
             {
-                var clashBoxCoordArray = CreateCoordArray(clashData); // Implement CreateCoordArray accordingly
-                clashFlag = CoordinateCheck(clashBoxCoordArray, eleBBoxLLCoordArray, eleBBoxULCoordArray); // Implement CoordinateCheck accordingly
+                var clashBoxCoordArray = mCreateCoordArray.CreateCoordArray(clashData, "cClashData");
+                clashFlag = mCoordinateCheck.CoordinateCheck("clashboxcheck", clashBoxCoordArray, eleBBoxLLCoordArray, eleBBoxULCoordArray);
 
                 if (clashFlag)
                 {

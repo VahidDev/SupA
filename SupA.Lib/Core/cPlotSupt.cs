@@ -6,23 +6,23 @@ namespace SupA.Lib.Core
     {
         private bool pisClosed;
         private bool pisInvalid;
-        private Collection<object> pPathsUnTravelled;
+        private List<object> pPathsUnTravelled;
         private int pPathsUnTravelledCount;
-        private Collection<object> pBeamsinFrame;
-        private Collection<object> pBeamsExcluded;
-        private Collection<object> pDirnsUntravelled;
-        private Collection<object> pGroupNodesTravelled;
-        private Collection<object> pGroupNodesinFrame;
-        private Collection<object> pLoadsonFrame;
+        private List<cSteel> pBeamsinFrame;
+        private List<object> pBeamsExcluded;
+        private List<object> pDirnsUntravelled;
+        private List<string> pGroupNodesTravelled;
+        private List<cGroupNode> pGroupNodesinFrame;
+        private List<object> pLoadsonFrame;
         private float pWeightPrelim;
         private float pWeightCalculated;
         private float pLength;
-        private Collection<cGroupNode> pConntoExistingSteelC;
+        private List<cGroupNode> pConntoExistingSteelC;
         private string pPotlSuptNo;
         private string pPotlSuptChildof;
-        private Collection<object> pCoordStringENColl;
-        private Collection<object> pBeamsinFrameratlized;
-        private Collection<object> pBasePlateDetailsinFrame;
+        private List<object> pCoordStringENColl;
+        private List<cSteel> pBeamsinFrameratlized;
+        private List<object> pBasePlateDetailsinFrame;
         private float pFabricationCost;
         private float pMatlCost;
         private float pTotalCost;
@@ -31,7 +31,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllPathsUnTravelled(float RowNo)
         {
-            Collection<object> Group = pPathsUnTravelled;
+            List<object> Group = pPathsUnTravelled;
             string[] Arr = new string[Group.Count + 1];
             if (Group.Count == 0)
                 Arr[1] = "potlsupt" + RowNo + "," + "," + pLength + "," + pConntoExistingSteelC.Count + "," + pisClosed + "," + pPotlSuptNo + "," + pPotlSuptChildof;
@@ -51,7 +51,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllGroupNodesinFrame(float RowNo)
         {
-            Collection<object> Group = pGroupNodesinFrame;
+            List<cGroupNode> Group = pGroupNodesinFrame;
             string[] Arr = new string[Group.Count + 1];
             string InternalPotlSuptNo = pPotlSuptNo;
             if (Group.Count == 0)
@@ -66,7 +66,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllConntoExistingSteelCNodesinFrame(float RowNo)
         {
-            Collection<cGroupNode> Group = pConntoExistingSteelC;
+            List<cGroupNode> Group = pConntoExistingSteelC;
             string[] Arr = new string[Group.Count + 1];
             string InternalPotlSuptNo = pPotlSuptNo;
             if (Group.Count == 0)
@@ -81,7 +81,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllBeamsinFrame(float RowNo)
         {
-            Collection<object> Group = pBeamsinFrame;
+            List<cSteel> Group = pBeamsinFrame;
             string[] Arr = new string[Group.Count + 1];
             string InternalPotlSuptNo = pPotlSuptNo;
             if (Group.Count == 0)
@@ -96,7 +96,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllDetailedBeamsinFrame(float RowNo)
         {
-            Collection<object> Group = pBeamsinFrameratlized;
+            List<cSteel> Group = pBeamsinFrameratlized;
             string[] Arr = new string[Group.Count + 1];
             string InternalPotlSuptNo = pPotlSuptNo;
             float tmpFrameRanking = pFrameRanking;
@@ -113,7 +113,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllBasePlateDetailsinFrame(float RowNo)
         {
-            Collection<object> Group = pBasePlateDetailsinFrame;
+            List<object> Group = pBasePlateDetailsinFrame;
             string[] Arr = new string[Group.Count + 1];
             string InternalPotlSuptNo = pPotlSuptNo;
             float tmpFrameRanking = pFrameRanking;
@@ -145,43 +145,43 @@ namespace SupA.Lib.Core
             set { pPathsUnTravelledCount = value; }
         }
 
-        public Collection<object> PathsUnTravelled
+        public List<object> PathsUnTravelled
         {
             get { return pPathsUnTravelled; }
             set { pPathsUnTravelled = value; }
         }
 
-        public Collection<object> BeamsExcluded
+        public List<object> BeamsExcluded
         {
             get { return pBeamsExcluded; }
             set { pBeamsExcluded = value; }
         }
 
-        public Collection<object> DirnsUntravelled
+        public List<object> DirnsUntravelled
         {
             get { return pDirnsUntravelled; }
             set { pDirnsUntravelled = value; }
         }
 
-        public Collection<object> GroupNodesTravelled
+        public List<string> GroupNodesTravelled
         {
             get { return pGroupNodesTravelled; }
             set { pGroupNodesTravelled = value; }
         }
 
-        public Collection<object> GroupNodesinFrame
+        public List<cGroupNode> GroupNodesinFrame
         {
             get { return pGroupNodesinFrame; }
             set { pGroupNodesinFrame = value; }
         }
 
-        public Collection<object> BeamsinFrame
+        public List<cSteel> BeamsinFrame
         {
             get { return pBeamsinFrame; }
             set { pBeamsinFrame = value; }
         }
 
-        public Collection<object> LoadsonFrame
+        public List<object> LoadsonFrame
         {
             get { return pLoadsonFrame; }
             set { pLoadsonFrame = value; }
@@ -205,7 +205,7 @@ namespace SupA.Lib.Core
             set { pLength = value; }
         }
 
-        public Collection<cGroupNode> ConntoExistingSteelC
+        public List<cGroupNode> ConntoExistingSteelC
         {
             get { return pConntoExistingSteelC; }
             set { pConntoExistingSteelC = value; }
@@ -223,19 +223,19 @@ namespace SupA.Lib.Core
             set { pPotlSuptChildof = value; }
         }
 
-        public Collection<object> CoordStringENColl
+        public List<object> CoordStringENColl
         {
             get { return pCoordStringENColl; }
             set { pCoordStringENColl = value; }
         }
 
-        public Collection<object> BeamsinFrameratlized
+        public List<cSteel> BeamsinFrameratlized
         {
             get { return pBeamsinFrameratlized; }
             set { pBeamsinFrameratlized = value; }
         }
 
-        public Collection<object> BasePlateDetailsinFrame
+        public List<object> BasePlateDetailsinFrame
         {
             get { return pBasePlateDetailsinFrame; }
             set { pBasePlateDetailsinFrame = value; }

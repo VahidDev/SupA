@@ -5,7 +5,7 @@ namespace SupA.Lib.FrameCreator
 {
     public class mCorrectSuptFrameCoords
     {
-        public void CorrectSuptFrameCoords(List<cSuptPoints> CollAdjacentSuptPoints, List<object> CollLocalExistingSteelDisc, Collection CollPotlSuptFrameDetails, Array arrNoofLevels)
+        public void CorrectSuptFrameCoords(List<cSuptPoints> CollAdjacentSuptPoints, List<cSteelDisc> CollLocalExistingSteelDisc, List<cPotlSupt> CollPotlSuptFrameDetails, Array arrNoofLevels)
         {
             cPotlSupt Frame;
             cSuptPoints Supt;
@@ -32,7 +32,7 @@ namespace SupA.Lib.FrameCreator
             CorrectSuptFrameCoordsTPosts(CollAdjacentSuptPoints, CollPotlSuptFrameDetails);
         }
 
-        public void CorrectSuptFrameCoordsTPosts(List<cSuptPoints> CollAdjacentSuptPoints, List<object> CollPotlSuptFrameDetails)
+        public void CorrectSuptFrameCoordsTPosts(List<cSuptPoints> CollAdjacentSuptPoints, List<cPotlSupt> CollPotlSuptFrameDetails)
         {
             // This function might require some new definitions in the cpotlsupt class or the groupnode class
             // as we are now choosing a route node that isn't necessarily the first route note in the groupednodes list.
@@ -44,7 +44,7 @@ namespace SupA.Lib.FrameCreator
             // Need to set up the FEA algorithm to refer to the "selectedroutenode" and also to refer to "accurate Coordinates"
         }
 
-        public void CorrectSuptFrameCoordsSteelConns(List<cSuptPoints> CollAdjacentSuptPoints, List<object> CollPotlSuptFrameDetails, List<cSteelDisc> CollLocalExistingSteelDisc)
+        public void CorrectSuptFrameCoordsSteelConns(List<cSuptPoints> CollAdjacentSuptPoints, List<cPotlSupt> CollPotlSuptFrameDetails, List<cSteelDisc> CollLocalExistingSteelDisc)
         {
             cPotlSupt Frame;
             cGroupNode GroupNode;

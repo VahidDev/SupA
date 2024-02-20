@@ -1,4 +1,5 @@
 ﻿using SupA.Lib.Core;
+using SupA.Lib.Initialization;
 
 namespace SupA.Lib.DataManipulation
 {
@@ -30,7 +31,7 @@ namespace SupA.Lib.DataManipulation
 
                     if (sinceSorting >= 1000)
                     {
-                        collPotlSuptFrameDetails = SortCollection(collPotlSuptFrameDetails); // Placeholder for actual sorting logic
+                        collPotlSuptFrameDetails = mSortCollection.SortCollection(collPotlSuptFrameDetails, "PathsUnTravelledCount"); // Placeholder for actual sorting logic
                         sinceSorting = 1;
                         ll1c = 0;
                     }
@@ -42,10 +43,10 @@ namespace SupA.Lib.DataManipulation
             }
 
             // Conditional exports based on `pubBOOLTraceOn`
-            if (pubBOOLTraceOn)
+            if (mSubInitializationSupA.pubBOOLTraceOn)
             {
-                ExportColltoCSVFile(collPotlSuptFrameDetails, $"CollPotlSuptFrameDetails-unfiltered-GroupNodes-F{suptGroupNo}", "WriteAllGroupNodesInFrame");
-                ExportColltoCSVFile(collInvalidPotlSuptFrameDetails, $"CollInvalidPotlSuptFrameDetails-Beams-F{suptGroupNo}", "WriteAllBeamsinFrame");
+                mExportColltoCSVFile<cPotlSupt>.ExportColltoCSVFile(collPotlSuptFrameDetails, $"CollPotlSuptFrameDetails-unfiltered-GroupNodes-F{suptGroupNo}", "WriteAllGroupNodesInFrame");
+                mExportColltoCSVFile<cPotlSupt>.ExportColltoCSVFile(collInvalidPotlSuptFrameDetails, $"CollInvalidPotlSuptFrameDetails-Beams-F{suptGroupNo}", "WriteAllBeamsinFrame");
             }
 
             // Further processing steps as per original VBA code
@@ -58,7 +59,7 @@ namespace SupA.Lib.DataManipulation
             foreach (var potlFrame in collPotlSuptFrameDetails)
             {
                 List<cSteel> newBeamsInFrame = new List<cSteel>();
-                foreach (var beam in potlFrame.BeamsInFrame)
+                foreach (var beam in potlFrame.BeamsinFrame)
                 {
                     cSteel newBeam = new cSteel
                     {
@@ -66,7 +67,7 @@ namespace SupA.Lib.DataManipulation
                     };
                     newBeamsInFrame.Add(newBeam);
                 }
-                potlFrame.BeamsInFrame = newBeamsInFrame;
+                potlFrame.BeamsinFrame = newBeamsInFrame;
             }
         }
     }

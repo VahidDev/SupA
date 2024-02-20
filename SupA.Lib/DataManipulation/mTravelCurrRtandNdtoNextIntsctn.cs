@@ -30,8 +30,15 @@ namespace SupA.Lib.DataManipulation
                     }
                 }
 
-                if (!potlSuptFrameLL2.IsClosed) ClearCurrPotlSuptRoute(potlSuptFrameLL2);
-                if (potlSuptFrameLL2.PathsUnTravelled.Count >= 1) untravelledPathsOutstanding = true;
+                if (!potlSuptFrameLL2.IsClosed)
+                {
+                    ClearCurrPotlSuptRoute(potlSuptFrameLL2);
+                }
+
+                if (potlSuptFrameLL2.PathsUnTravelled.Count >= 1)
+                {
+                    untravelledPathsOutstanding = true;
+                }
             }
         }
     }

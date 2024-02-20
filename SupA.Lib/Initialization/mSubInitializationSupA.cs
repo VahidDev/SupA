@@ -58,7 +58,7 @@ namespace SupA.Lib.Initialization
             string str3DEnv;
 
             // Activity Log Tracking
-            WriteActivityLog("SupA Run Started. See Time Stamp for Further Information", DateTime.Now, "first entry");
+            mWriteActivityLog.WriteActivityLog("SupA Run Started. See Time Stamp for Further Information", DateTime.Now, "first entry");
 
             // Set all project wide and public variables
             Excel.Workbook activeWorkbook = ((Excel.Application)Excel.Application).ActiveWorkbook;

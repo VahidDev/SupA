@@ -452,7 +452,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             return false;
         }
 
-        public cSuptPoints SetEffectiveCentreofAdjacentSupts(List<object> CollAdjacentSuptPoints)
+        public static cSuptPoints SetEffectiveCentreofAdjacentSupts(List<cSuptPoints> CollAdjacentSuptPoints)
         {
             cSuptPoints SetEffectiveCentreofAdjacentSupts = new cSuptPoints();
             SetEffectiveCentreofAdjacentSupts.EastingSuptPoint = 0;

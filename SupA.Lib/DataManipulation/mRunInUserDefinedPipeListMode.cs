@@ -1,4 +1,5 @@
 ﻿using SupA.Lib.Core;
+using SupA.Lib.Initialization;
 
 namespace SupA.Lib.DataManipulation
 {
@@ -20,40 +21,35 @@ namespace SupA.Lib.DataManipulation
         private cTubeDef TubiforLocalSteelColl;
         private int I;
 
-        // Assuming these are defined and set elsewhere
-        private string pubThreeDModelSoftware = "P3D";
-        private string pubstrFolderPath = @"C:\Path\To\3DOutSupAIn\SuptPointSelMode\";
-        private bool pubBOOLTraceOn = true;
-
         public void RunInUserDefinedPipeListMode()
         {
-            Collection<cTubeDef> CollPipeforSupporting = new Collection<cTubeDef>();
-            Collection<cSteel> CollExistingSteel = new Collection<cSteel>();
-            Collection<cSteelDisc> CollExistingSteelDisc = new Collection<cSteelDisc>();
-            Collection<cSteel> CollExistingConcrete = new Collection<cSteel>();
-            Collection<object> CollSelectedSuptLocns = new Collection<object>();
-            Collection<object> CollAllSuptPointScores = new Collection<object>();
-            Collection<object> CollAllSelectedSuptLocns = new Collection<object>();
-            Collection<cTubeDef> CollPipeforSupportingInd;
-            Collection<cSteel> CollExistingSteelforTubi;
+            List<cTubeDef> CollPipeforSupporting = new List<cTubeDef>();
+            List<cSteel> CollExistingSteel = new List<cSteel>();
+            List<cSteelDisc> CollExistingSteelDisc = new List<cSteelDisc>();
+            List<cSteel> CollExistingConcrete = new List<cSteel>();
+            List<object> CollSelectedSuptLocns = new List<object>();
+            List<object> CollAllSuptPointScores = new List<object>();
+            List<object> CollAllSelectedSuptLocns = new List<object>();
+            List<cTubeDef> CollPipeforSupportingInd;
+            List<cSteel> CollExistingSteelforTubi;
             cTubeDef TubiforLocalSteelColl;
 
             // Activity Log Tracking
-            WriteActivityLog("Import and Prepare 3D Data for SupA to Run On", DateTime.Now);
+            mWriteActivityLog.WriteActivityLog("Import and Prepare 3D Data for SupA to Run On", DateTime.Now);
 
             // If using P3D output then convert this to the standard import format first
-            if (pubThreeDModelSoftware == "P3D")
+            if (mSubInitializationSupA.pubThreeDModelSoftware == "P3D")
             {
-                ImportSDNFtoSupA(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "P3D-ExistingSteelData", "SuptPointSelMode\\Area-ExistingSteelData");
-                CollExistingSteel = ImportCSVFiletoColl<cSteel>(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData", ',', new cSteel());
+                ImportSDNFtoSupA(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "P3D-ExistingSteelData", "SuptPointSelMode\\Area-ExistingSteelData");
+                CollExistingSteel = ImportCSVFiletoColl<cSteel>(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData", ',', new cSteel());
 
-                CollPipeforSupporting = ImportCSVFiletoColl<cTubeDef>(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData", ',', new cTubeDef());
+                CollPipeforSupporting = ImportCSVFiletoColl<cTubeDef>(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData", ',', new cTubeDef());
 
                 // Then split the Area-ExistingSteelData into a collection of csv files (one per tubi)
                 for (I = 1; I <= CollPipeforSupporting.Count; I++)
                 {
-                    CollExistingSteelforTubi = RedEntireStruModtoLocaltoTubi(CollExistingSteel, CollPipeforSupporting[I - 1]);
-                    ExportColltoCSVFile(CollExistingSteelforTubi, "SuptPointSelMode\\Area-ExistingSteelData-" + I, "csv");
+                    CollExistingSteelforTubi = mRedEntireStruModtoLocaltoTubi.RedEntireStruModtoLocaltoTubi(CollExistingSteel, CollPipeforSupporting[I - 1]);
+                    mExportColltoCSVFile<cSteel>.ExportColltoCSVFile(CollExistingSteelforTubi, "SuptPointSelMode\\Area-ExistingSteelData-" + I, "csv");
                 }
             }
 
@@ -62,7 +58,7 @@ namespace SupA.Lib.DataManipulation
             // is collect existing steel and existing concrete specific to each of these tubes as this is a more efficient way of executing the code
 
             var PipeforSupporting = new cTubeDef();
-            var CollPipeforSupporting = ImportCSVFiletoColl(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",
+            CollPipeforSupporting = ImportCSVFiletoColl(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",
             ".csv", ",", PipeforSupporting, typeof(cTubeDef));
 
             // Let's loop through and support one tube at a time
@@ -73,19 +69,22 @@ namespace SupA.Lib.DataManipulation
 
                 // Import the steel specific concrete definition file
                 var Existingsteel = new cSteel();
-                CollExistingSteel = ImportCSVFiletoColl(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData-" + I,
+                CollExistingSteel = ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData-" + I,
                 ".csv", ",", Existingsteel, typeof(cSteel));
 
-                ExportColltoCSVFile(CollAllSelectedSuptLocns, "CollSelectedSuptLocns", "csv", true);
+                mExportColltoCSVFile<object>.ExportColltoCSVFile(CollAllSelectedSuptLocns, "CollSelectedSuptLocns", "csv", true);
 
                 // Import the tubi specific concrete definition file
                 var ExistingConcrete = new cSteel();
-                CollExistingConcrete = ImportCSVFiletoColl(pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingConcreteData-" + I,
+                CollExistingConcrete = ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingConcreteData-" + I,
                 ".csv", ",", ExistingConcrete, typeof(cSteel));
 
                 // Convert CollExistingSteel to CollExistingSteelDisc
-                CollExistingSteel = ManipulateStrutoSupAFormat(CollExistingSteel, pubThreeDModelSoftware);
-                if (pubBOOLTraceOn) ExportColltoCSVFile(CollExistingSteel, "CollExistingSteelwithFaces", "csv");
+                CollExistingSteel = ManipulateStrutoSupAFormat(CollExistingSteel, mSubInitializationSupA.pubThreeDModelSoftware);
+                if (mSubInitializationSupA.pubBOOLTraceOn)
+                {
+                    mExportColltoCSVFile<cSteel>.ExportColltoCSVFile(CollExistingSteel, "CollExistingSteelwithFaces", "csv");
+                }
 
                 // Merge the concrete and existing steel collections
                 CollExistingSteel = MergeCollection(CollExistingSteel, CollExistingConcrete);
@@ -100,11 +99,6 @@ namespace SupA.Lib.DataManipulation
                 MasterSuptPointCreatorSub(CollPipeforSupportingInd, CollExistingSteelDisc, CollExistingSteel, CollSelectedSuptLocns, CollAllSuptPointScores, CollAllSelectedSuptLocns);
 
                 SelectandDetailAncilliary(CollSelectedSuptLocns);
-
-                if (I == 47)
-                {
-                    TestVar = TestVar;
-                }
             }
         }
     }

@@ -6,7 +6,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mSortCollection
     {
-        public Collection<object> SortCollection(Collection<object> C, string ColtoSort)
+        public static List<cPotlSupt> SortCollection(List<cPotlSupt> C, string ColtoSort)
         {
             int n = C.Count;
             // Special case - sorting by PathsUnTravelledCount
@@ -14,7 +14,7 @@ namespace SupA.Lib.DataManipulation
             {
                 return SortCollectionbyPathsunT(C);
             }
-            if (n == 0) return new Collection<object>();
+            if (n == 0) return new List<cPotlSupt>();
 
             int[] Index = new int[n]; // allocate index array
             for (int I = 0; I < n; I++) Index[I] = I + 1; // fill index array
@@ -30,20 +30,20 @@ namespace SupA.Lib.DataManipulation
                 Heapify(C, ColtoSort, Index, 0, M - 1);
             }
 
-            Collection<object> C2 = new Collection<object>();
+            List<cPotlSupt> C2 = new List<cPotlSupt>();
             for (int I = 0; I < n; I++) C2.Add(C[Index[I] - 1]); // fill output collection
 
             return C2;
         }
 
-        private void Exchange(int[] Index, long I, long J)
+        private static void Exchange(int[] Index, long I, long J)
         {
             int Temp = Index[I];
             Index[I] = Index[J];
             Index[J] = Temp;
         }
 
-        private void Heapify(Collection<object> c, string colToSort, int[] index, int i, int n)
+        private static void Heapify(List<cPotlSupt> c, string colToSort, int[] index, int i, int n)
         {
             // Heap order rule: a[i] >= a[2*i+1] and a[i] >= a[2*i+2]
             long nDiv2 = n / 2;
@@ -67,13 +67,13 @@ namespace SupA.Lib.DataManipulation
             }
         }
 
-        public Collection<object> SortCollectionbyPathsunT(Collection<object> C)
+        public static List<cPotlSupt> SortCollectionbyPathsunT(List<cPotlSupt> C)
         {
             cPotlSupt M;
             int MaxPathsunT = 0;
             int I;
             int I2;
-            Collection<object> C2 = new Collection<object>();
+            List<cPotlSupt> C2 = new List<cPotlSupt>();
 
             // See what the maximum pathsuntravelled count value is in our entire list
             foreach (cPotlSupt item in C)
