@@ -1,4 +1,5 @@
 ﻿using SupA.Lib.Core;
+using SupA.Lib.FrameCreator;
 using SupA.Lib.Initialization;
 using SupA.Lib.Models;
 
@@ -43,7 +44,7 @@ namespace SupA.Lib.DataManipulation
             if (mSubInitializationSupA.pubBOOLTraceOn) mExportColltoCSVFile<cSteel>.ExportColltoCSVFile(CollExistingSteel, "CollExistingSteelwithFaces", "csv");
 
             // Merge the concrete and existing steel collections
-            MergeCollection(CollExistingSteel, CollExistingConcrete);
+            mBuildSupportFrameWorkOptions<cSteel>.MergeCollection<cSteel, cSteel, object, object, object, object>(CollExistingSteel, CollExistingConcrete);
 
             // Then get rid of all those existing steel faces which aren't within 3500 of any support point
             mRedEntireStruModtoLocaltoTubi.RedEntireStruModtoLocaltoTubi(CollExistingSteel, CollSuptPointsinArea);
