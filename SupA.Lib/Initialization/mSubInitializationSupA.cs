@@ -96,10 +96,10 @@ namespace SupA.Lib.Initialization
                     Interaction.MsgBox("error"); // Call RunInStatusdefinedlistMode (future functionality requirement logged in Jira)
                     break;
                 case "UserCreatedSuptPoints":
-                    RunInUserCreatedSuptPointsMode();
+                    mRunInUserCreatedSuptPointsMode.RunInUserCreatedSuptPointsMode();
                     break;
                 case "UserDefinedPipeList":
-                    RunInUserDefinedPipeListMode();
+                    mRunInUserDefinedPipeListMode.RunInUserDefinedPipeListMode();
                     break;
                 case "ClearPreviousRun":
                     mArchiveRun.ArchiveRun(strRunName, str3DEnv);
@@ -108,6 +108,27 @@ namespace SupA.Lib.Initialization
                     Interaction.MsgBox("error");
                     break;
             }
+        }
+
+        public static string ImportFlagTxt(string folderPath, string filename, string fileExtension, string variableSeparator)
+        {
+            string completeFilePath = Path.Combine(folderPath, filename + fileExtension);
+            string strFlagtoReturn = string.Empty;
+
+            // Open file for input and get the first line
+            if (File.Exists(completeFilePath))
+            {
+                using (StreamReader sr = new StreamReader(completeFilePath))
+                {
+                    strFlagtoReturn = sr.ReadLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("File not found: " + completeFilePath);
+            }
+
+            return strFlagtoReturn;
         }
     }
 }

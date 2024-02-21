@@ -17,7 +17,7 @@ namespace SupA.Lib.DataManipulation
         private List<object> CollExistingSteelforTubi = new List<object>();
         private cTubeDef TubiforLocalSteelColl;
 
-        public void RunInUserDefinedPipeListMode()
+        public static void RunInUserDefinedPipeListMode()
         {
             List<cTubeDef> CollPipeforSupporting = new List<cTubeDef>();
             List<cSteel> CollExistingSteel = new List<cSteel>();

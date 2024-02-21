@@ -9,7 +9,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
 {
     public class mGroupSimilarFrameNodes
     {
-        public void GroupSimilarFrameNodes(List<cRouteNode> CollFrameNodeMap, List<object> CollVerticalCols, List<cGroupNode> CollFrameNodeMapGrouped, List<cGroupNode> CollIntersectionGroupNodes, List<cSteel> CollGroupNodeBeams, List<cSuptPoints> CollAdjacentSuptPoints, int SuptGroupNo, cSuptPoints suptpointEffectiveCentre)
+        public static void GroupSimilarFrameNodes(List<cRouteNode> CollFrameNodeMap, List<object> CollVerticalCols, List<cGroupNode> CollFrameNodeMapGrouped, List<cGroupNode> CollIntersectionGroupNodes, List<cSteel> CollGroupNodeBeams, List<cSuptPoints> CollAdjacentSuptPoints, int SuptGroupNo, cSuptPoints suptpointEffectiveCentre)
         {
             int LL1c = 0;
             bool ContinueLL2Flag;
@@ -76,7 +76,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             }
         }
 
-        public void ReworkBaseCollFrameNodeMapGrouped(List<cGroupNode> CollFrameNodeMapGrouped, List<cSuptPoints> CollAdjacentSuptPoints)
+        public static void ReworkBaseCollFrameNodeMapGrouped(List<cGroupNode> CollFrameNodeMapGrouped, List<cSuptPoints> CollAdjacentSuptPoints)
         {
             float CalculatedEasting = 0;
             float CalculatedNorthing = 0;
@@ -109,7 +109,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             }
         }
 
-        public List<cSteel> CreateGroupNodeBeams(List<cGroupNode> CollIntersectionGroupNodes)
+        public static List<cSteel> CreateGroupNodeBeams(List<cGroupNode> CollIntersectionGroupNodes)
         {
             List<cSteel> CollGroupNodeBeams = new List<cSteel>();
 
@@ -179,7 +179,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             return CollGroupNodeBeams;
         }
 
-        public string AssignGroupBeamSteelType(cGroupNode GroupNodeLL1, cGroupNode GroupNodeLL2)
+        public static string AssignGroupBeamSteelType(cGroupNode GroupNodeLL1, cGroupNode GroupNodeLL2)
         {
             if (!string.IsNullOrEmpty(GroupNodeLL2.GroupedNodes[0].AssocExtendedBeam) && !string.IsNullOrEmpty(GroupNodeLL1.GroupedNodes[0].AssocExtendedBeam))
             {
@@ -202,7 +202,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             return null;
         }
 
-        public List<cGroupNode> IdentifyIntersectionGroupNodes(List<cGroupNode> CollFrameNodeMapGrouped, cSuptPoints suptpointEffectiveCentre)
+        public static List<cGroupNode> IdentifyIntersectionGroupNodes(List<cGroupNode> CollFrameNodeMapGrouped, cSuptPoints suptpointEffectiveCentre)
         {
             List<cGroupNode> CollIntersectionGroupNodes = new List<cGroupNode>();
 
@@ -267,7 +267,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             return CollIntersectionGroupNodes;
         }
 
-        public void PopulateConnectingIntersectionNodesinDir(List<cGroupNode> CollIntersectionGroupNodes)
+        public static void PopulateConnectingIntersectionNodesinDir(List<cGroupNode> CollIntersectionGroupNodes)
         {
             string[] ArrDirnstoAttempt = new string[] { "E", "N", "U", "W", "S", "D" };
 
@@ -330,7 +330,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             }
         }
 
-        public bool CheckIfNodeShouldBeInGroup(cRouteNode RouteNodeLL3, cRouteNode RoutenodeLL4, List<object> CollVerticalCols, cSuptPoints suptpointEffectiveCentre)
+        public static bool CheckIfNodeShouldBeInGroup(cRouteNode RouteNodeLL3, cRouteNode RoutenodeLL4, List<object> CollVerticalCols, cSuptPoints suptpointEffectiveCentre)
         {
             float[] CoordArrayLL3 = new float[5];
             float[] CoordArrayLL4 = new float[5];
@@ -409,7 +409,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             return false;
         }
 
-        public bool CheckifThereisaPerpBeamAtThisPoint(string StartConnDirLL4, string EndConnDirLL4, string StartConnDirLL3, string EndConnDirLL3)
+        public static bool CheckifThereisaPerpBeamAtThisPoint(string StartConnDirLL4, string EndConnDirLL4, string StartConnDirLL3, string EndConnDirLL3)
         {
             if ((StartConnDirLL4 == "N" || StartConnDirLL4 == "S") && (EndConnDirLL4 == "N" || EndConnDirLL4 == "S") &&
                 (StartConnDirLL3 == "N" || StartConnDirLL3 == "S") && (EndConnDirLL3 == "N" || EndConnDirLL3 == "S"))
@@ -427,7 +427,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             }
         }
 
-        public bool CheckifAtSuptBeamMidPoint(string StartConnDirLL4, cRouteNode RoutenodeLL4, cSuptPoints suptpointEffectiveCentre)
+        public static bool CheckifAtSuptBeamMidPoint(string StartConnDirLL4, cRouteNode RoutenodeLL4, cSuptPoints suptpointEffectiveCentre)
         {
             if (StartConnDirLL4 == "N" || StartConnDirLL4 == "S")
             {
@@ -474,7 +474,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             return SetEffectiveCentreofAdjacentSupts;
         }
 
-        public bool GroupedNodeonSuptPointEffectiveCentre(cRouteNode Nodetocheck, cSuptPoints suptpointEffectiveCentre)
+        public static bool GroupedNodeonSuptPointEffectiveCentre(cRouteNode Nodetocheck, cSuptPoints suptpointEffectiveCentre)
         {
             if (!string.IsNullOrEmpty(Nodetocheck.ConnNDir) || !string.IsNullOrEmpty(Nodetocheck.ConnSDir))
             {

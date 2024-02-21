@@ -3,12 +3,12 @@
     public class cSteel
     {
         private float pBeamNo;
-        private double pStartE;
-        private double pStartN;
-        private double pStartU;
-        private double pEndE;
-        private double pEndN;
-        private double pEndU;
+        private float pStartE;
+        private float pStartN;
+        private float pStartU;
+        private float pEndE;
+        private float pEndN;
+        private float pEndU;
         private double pLength;
         private string pDir;
         private string pSuptNosonBeam;
@@ -47,12 +47,12 @@
         private string pSTAADSctnName;
 
         public float BeamNo { get => pBeamNo; set => pBeamNo = value; }
-        public double StartE { get => pStartE; set => pStartE = value; }
-        public double StartN { get => pStartN; set => pStartN = value; }
-        public double StartU { get => pStartU; set => pStartU = value; }
-        public double EndE { get => pEndE; set => pEndE = value; }
-        public double EndN { get => pEndN; set => pEndN = value; }
-        public double EndU { get => pEndU; set => pEndU = value; }
+        public float StartE { get => pStartE; set => pStartE = value; }
+        public float StartN { get => pStartN; set => pStartN = value; }
+        public float StartU { get => pStartU; set => pStartU = value; }
+        public float EndE { get => pEndE; set => pEndE = value; }
+        public float EndN { get => pEndN; set => pEndN = value; }
+        public float EndU { get => pEndU; set => pEndU = value; }
         public double Length { get => pLength; set => pLength = value; }
         public string Dir;
         public string SuptNosonBeam { get => pSuptNosonBeam; set => pSuptNosonBeam = value; }

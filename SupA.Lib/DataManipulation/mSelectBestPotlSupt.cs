@@ -20,7 +20,7 @@ namespace SupA.Lib.DataManipulation
                 foreach (var beam in frame.BeamsinFrame)
                 {
                     WriteSctnPropToBeam(beam, preferredSctnProp);
-                    frame.WeightCalculated += beam.Length * (float)preferredSctnProp.Weight;
+                    frame.WeightCalculated += (float)beam.Length * (float)preferredSctnProp.Weight;
                 }
 
                 if (frame.WeightCalculated <= snglLightestWeight)
@@ -36,7 +36,7 @@ namespace SupA.Lib.DataManipulation
                 foreach (var beam in frame.BeamsinFrame)
                 {
                     WriteSctnPropToBeam(beam, tblLightestSctnProp);
-                    frame.WeightCalculated += beam.Length * (float)tblLightestSctnProp.Weight;
+                    frame.WeightCalculated += (float)beam.Length * (float)tblLightestSctnProp.Weight;
                 }
             }
         }

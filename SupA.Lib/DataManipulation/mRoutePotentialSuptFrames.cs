@@ -5,7 +5,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mRoutePotentialSuptFrames
     {
-        public void RoutePotentialSuptFrames(List<cPotlSupt> collPotlSuptFrameDetails, List<object> collFrameNodeMapGrouped, List<object> collGroupNodeBeams, int noOfSuptBeamEndCoords, int suptGroupNo)
+        public static void RoutePotentialSuptFrames(List<cPotlSupt> collPotlSuptFrameDetails, List<cGroupNode> collFrameNodeMapGrouped, List<object> collGroupNodeBeams, int noOfSuptBeamEndCoords, int suptGroupNo)
         {
             var arrDirnsToAttempt = new string[,] { { "", "E" }, { "", "N" }, { "", "U" }, { "", "W" }, { "", "S" }, { "", "D" } };
             int noOfLoops = 0;
@@ -54,7 +54,7 @@ namespace SupA.Lib.DataManipulation
             MakePotlSuptFramesBeamsUnique(collPotlSuptFrameDetails);
         }
 
-        public void MakePotlSuptFramesBeamsUnique(List<cPotlSupt> collPotlSuptFrameDetails)
+        public static void MakePotlSuptFramesBeamsUnique(List<cPotlSupt> collPotlSuptFrameDetails)
         {
             foreach (var potlFrame in collPotlSuptFrameDetails)
             {

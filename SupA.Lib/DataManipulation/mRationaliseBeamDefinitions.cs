@@ -65,12 +65,12 @@ namespace SupA.Lib.DataManipulation
             if (DirectionCheck(ratBeamLL1.Dir, ratBeamLL2.Dir) == "parallel")
             {
                 // Update ratBeamLL1 to the combined or furthest extents
-                ratBeamLL1.StartE = startE;
-                ratBeamLL1.StartN = startN;
-                ratBeamLL1.StartU = startU;
-                ratBeamLL1.EndE = endE;
-                ratBeamLL1.EndN = endN;
-                ratBeamLL1.EndU = endU;
+                ratBeamLL1.StartE = (float)startE;
+                ratBeamLL1.StartN = (float)startN;
+                ratBeamLL1.StartU = (float)startU;
+                ratBeamLL1.EndE = (float)endE;
+                ratBeamLL1.EndN = (float)endN;
+                ratBeamLL1.EndU = (float)endU;
 
                 // Optionally, update the connection names if relevant to the logic
                 // This part is assumed and would depend on specific requirements

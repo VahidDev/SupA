@@ -7,7 +7,7 @@ namespace SupA.Lib.FrameCreator
 {
     public class mBuildSupportFrameWorkOptions
     {
-        public List<cSuptPoints> BuildSupportFrameWorkOptions(
+        public List<cPotlSupt> BuildSupportFrameWorkOptions(
         List<cSuptPoints> collAdjacentSuptPoints,
         object[] arrNoofLevels,
         List<object> collLocalClashData,
@@ -26,9 +26,9 @@ namespace SupA.Lib.FrameCreator
             List<cSteelDisc> collAllDiscBeams;
             List<cSteelDisc> collAllDiscBeamsforNodeMap;
             List<cRouteNode> collFrameNodeMap;
-            List<object> collFrameNodeMapGrouped;
-            List<object> collIntersectionGroupNodes;
-            List<cSuptPoints> collPotlSuptFrameDetails;
+            List<cGroupNode> collFrameNodeMapGrouped;
+            List<cGroupNode> collIntersectionGroupNodes;
+            List<cPotlSupt> collPotlSuptFrameDetails;
             List<object> collGroupNodeBeams;
 
             // Calculate the centre point of our supports.
@@ -76,15 +76,15 @@ namespace SupA.Lib.FrameCreator
             collFrameNodeMap = mCreateCompleteNodemap.CreateCompleteNodemap(collLocalExistingSteelDisc, collAllDiscBeamsforNodeMap, suptGroupNo);
 
             // Now Group the nodes which can be treated as a single entity
-            collFrameNodeMapGrouped = new List<FrameNodeMapGrouped>();
-            collIntersectionGroupNodes = new List<IntersectionGroupNodes>();
-            GroupSimilarFrameNodes(collFrameNodeMap, collVerticalCols, collFrameNodeMapGrouped, collIntersectionGroupNodes, collGroupNodeBeams, collAdjacentSuptPoints, suptGroupNo, suptPointEffectiveCentre);
+            collFrameNodeMapGrouped = new List<cGroupNode>();
+            collIntersectionGroupNodes = new List<cGroupNode>();
+            mGroupSimilarFrameNodes.GroupSimilarFrameNodes(collFrameNodeMap, collVerticalCols, collFrameNodeMapGrouped, collIntersectionGroupNodes, collGroupNodeBeams, collAdjacentSuptPoints, suptGroupNo, suptPointEffectiveCentre);
 
             // Now build collPotlSuptFrameDetails with start points
             collPotlSuptFrameDetails = PopulateStartsinPotlFrameColl(collIntersectionGroupNodes, collGroupNodeBeams, suptPointEffectiveCentre);
 
             // Now start PopulateStartsinPotlFrameColl
-            RoutePotentialSuptFrames(collPotlSuptFrameDetails, collIntersectionGroupNodes, collGroupNodeBeams, noofSuptBeamEndCoords, suptGroupNo);
+            mRoutePotentialSuptFrames.RoutePotentialSuptFrames(collPotlSuptFrameDetails, collIntersectionGroupNodes, collGroupNodeBeams, noofSuptBeamEndCoords, suptGroupNo);
 
             return collPotlSuptFrameDetails;
         }

@@ -6,7 +6,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mRunInUserCreatedSuptPointsMode
     {
-        public void RunInUserCreatedSuptPointsMode()
+        public static void RunInUserCreatedSuptPointsMode()
         {
             // Define and set all function wide and function specific private variables
             cTubeDef CollSuptPointsinArea ;
