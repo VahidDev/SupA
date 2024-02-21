@@ -5,7 +5,7 @@ using SupA.Lib.Initialization;
 
 namespace SupA.Lib.FrameCreator
 {
-    public class mBuildSupportFrameWorkOptions
+    public class mBuildSupportFrameWorkOptions<T> where T : class
     {
         public List<cPotlSupt> BuildSupportFrameWorkOptions(
         List<cSuptPoints> collAdjacentSuptPoints,
@@ -22,7 +22,7 @@ namespace SupA.Lib.FrameCreator
             List<cSteelDisc> collSuptBeamsDisc;
             List<cSteelDisc> collExtendedBeamsDisc;
             List<cSteelDisc> collTrimSteelsDisc;
-            List<object> collVerticalColsDisc;
+            List<cSteelDisc> collVerticalColsDisc;
             List<cSteelDisc> collAllDiscBeams;
             List<cSteelDisc> collAllDiscBeamsforNodeMap;
             List<cRouteNode> collFrameNodeMap;
@@ -55,7 +55,7 @@ namespace SupA.Lib.FrameCreator
             mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(collTrimSteelsDisc, "CollTrimSteelsDisc-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
             // Now combine all discretised beam points into a single collection for use in CreateVerticalCols
-            collAllDiscBeams = MergeCollection(collSuptBeamsDisc, collExtendedBeamsDisc, collTrimSteelsDisc, collLocalExistingSteelDisc);
+            collAllDiscBeams = mBuildSupportFrameWorkOptions<cSteelDisc>.MergeCollection<cSteelDisc, cSteelDisc, cSteelDisc, cSteelDisc, object, object>(collSuptBeamsDisc, collExtendedBeamsDisc, collTrimSteelsDisc, collLocalExistingSteelDisc);
 
             // now delete all the collLocalExistingSteelDisc which is parallel to our pipe to reduce the size of our problem space
             RationaliseLocalExistingSteel(collAllDiscBeams, collAdjacentSuptPoints);
@@ -69,7 +69,7 @@ namespace SupA.Lib.FrameCreator
 
             // Now combine all discretised beams and columns (excluding existing steel discretised nodes) into a single collection
             // for use as the basis of creating frame options
-            collAllDiscBeamsforNodeMap = MergeCollection(collSuptBeamsDisc, collExtendedBeamsDisc, collTrimSteelsDisc, collVerticalColsDisc);
+            collAllDiscBeamsforNodeMap = mBuildSupportFrameWorkOptions<cSteelDisc>.MergeCollection<cSteelDisc, cSteelDisc, cSteelDisc, cSteelDisc, object, object>(collSuptBeamsDisc, collExtendedBeamsDisc, collTrimSteelsDisc, collVerticalColsDisc);
             mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(collAllDiscBeamsforNodeMap, "CollAllDiscBeamsforNodeMap-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
             // Create a frame node map for use in frame option creation
@@ -116,11 +116,12 @@ namespace SupA.Lib.FrameCreator
             }
         }
 
-        public static List<cSteelDisc> MergeCollection(List<cSteelDisc> col1 = null, List<cSteelDisc> col2 = null, List<cSteelDisc> col3 = null, List<cSteelDisc> col4 = null, List<cSteelDisc> col5 = null, List<cSteelDisc> col6 = null)
+        public static List<T> MergeCollection<T1, T2, T3, T4, T5, T6>(List<T1> col1 = null, List<T2> col2 = null, List<T3> col3 = null, List<T4> col4 = null, List<T5> col5 = null, List<T6> col6 = null)
+            where T1 : class where T2 : class where T3 : class where T4 : class where T5 : class where T6 : class
         {
             // Add items from col2 to col1 and return the result
             // The function returns a NEW merged list
-            var colNew = new List<cSteelDisc>();
+            var colNew = new List<object>();
 
             if (col1 != null)
             {
@@ -165,7 +166,7 @@ namespace SupA.Lib.FrameCreator
                 }
             }
 
-            return colNew; // return the new merged list
+            return colNew as List<T>; // return the new merged list
         }
     }
 }

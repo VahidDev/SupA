@@ -1,4 +1,5 @@
 ﻿using SupA.Lib.Core;
+using SupA.Lib.FrameCreator;
 using SupA.Lib.Initialization;
 
 namespace SupA.Lib.DataManipulation
@@ -85,7 +86,7 @@ namespace SupA.Lib.DataManipulation
                 }
 
                 // Merge the concrete and existing steel collections
-                CollExistingSteel = MergeCollection(CollExistingSteel, CollExistingConcrete);
+                CollExistingSteel = mBuildSupportFrameWorkOptions<cSteel>.MergeCollection<cSteel, cSteel, object, object, object, object>(CollExistingSteel, CollExistingConcrete);
 
                 CollExistingSteelDisc = DiscretiseBeamsforFrames(CollExistingSteel);
                 // If pubBOOLTraceOn then ExportColltoCSVFile(CollExistingSteelDisc, "CollExistingSteelDisc", "csv");
