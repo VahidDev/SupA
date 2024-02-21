@@ -195,7 +195,7 @@ namespace SupA.Lib.RoutePotentialSuptFrames
             }
         }
 
-        public bool EnsureNodetoIsUniqueinPathsUntravelled(List<object> PathsUnTravelled, cGroupNode NodeTo)
+        public bool EnsureNodetoIsUniqueinPathsUntravelled(List<cGroupNode> PathsUnTravelled, cGroupNode NodeTo)
         {
             bool isUnique = true;
             foreach (cGroupNode GroupNode in PathsUnTravelled)
@@ -267,17 +267,17 @@ namespace SupA.Lib.RoutePotentialSuptFrames
         {
             cPotlSupt NewPotlSuptFrame = new cPotlSupt();
 
-            foreach (object mem in CurrPotlSuptFrame.PathsUnTravelled)
+            foreach (var mem in CurrPotlSuptFrame.PathsUnTravelled)
             {
                 NewPotlSuptFrame.PathsUnTravelled.Add(mem);
             }
 
-            foreach (object mem in CurrPotlSuptFrame.BeamsExcluded)
+            foreach (var mem in CurrPotlSuptFrame.BeamsExcluded)
             {
                 NewPotlSuptFrame.BeamsExcluded.Add(mem);
             }
 
-            foreach (object mem in CurrPotlSuptFrame.DirnsUntravelled)
+            foreach (var mem in CurrPotlSuptFrame.DirnsUntravelled)
             {
                 NewPotlSuptFrame.DirnsUntravelled.Add(mem);
             }
@@ -297,17 +297,17 @@ namespace SupA.Lib.RoutePotentialSuptFrames
                 NewPotlSuptFrame.BeamsinFrame.Add(mem);
             }
 
-            foreach (object mem in CurrPotlSuptFrame.LoadsonFrame)
+            foreach (var mem in CurrPotlSuptFrame.LoadsonFrame)
             {
                 NewPotlSuptFrame.LoadsonFrame.Add(mem);
             }
 
-            foreach (cGroupNode mem in CurrPotlSuptFrame.ConntoExistingSteelC)
+            foreach (var mem in CurrPotlSuptFrame.ConntoExistingSteelC)
             {
                 NewPotlSuptFrame.ConntoExistingSteelC.Add(mem);
             }
 
-            foreach (object mem in CurrPotlSuptFrame.CoordStringENColl)
+            foreach (var mem in CurrPotlSuptFrame.CoordStringENColl)
             {
                 NewPotlSuptFrame.CoordStringENColl.Add(mem);
             }

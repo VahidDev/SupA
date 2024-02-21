@@ -31,7 +31,7 @@ namespace SupA.Lib.DataManipulation
 
                     if (sinceSorting >= 1000)
                     {
-                        collPotlSuptFrameDetails = mSortCollection.SortCollection(collPotlSuptFrameDetails, "PathsUnTravelledCount"); // Placeholder for actual sorting logic
+                        collPotlSuptFrameDetails = mSortCollection<cPotlSupt>.SortCollection(collPotlSuptFrameDetails, "PathsUnTravelledCount"); // Placeholder for actual sorting logic
                         sinceSorting = 1;
                         ll1c = 0;
                     }

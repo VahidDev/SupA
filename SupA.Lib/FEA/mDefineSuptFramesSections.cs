@@ -19,7 +19,7 @@ namespace SupA.Lib.FEA
         {
             // Initialize necessary variables and collections
             List<cPotlSupt> CollPotlSuptFrameDetails = new List<cPotlSupt>();
-            List<object> CollAdjacentSuptPoints = new List<object>();
+            var CollAdjacentSuptPoints = new List<cSuptPoints>();
             int SuptGroupNo = 0;
 
             // Call the method to define support frame sections
@@ -32,11 +32,11 @@ namespace SupA.Lib.FEA
             }
         }
 
-        static void DefineSuptFramesSections(List<cPotlSupt> collPotlSuptFrameDetails, List<object> collAdjacentSuptPoints, int suptGroupNo)
+        static void DefineSuptFramesSections(List<cPotlSupt> collPotlSuptFrameDetails, List<cSuptPoints> collAdjacentSuptPoints, int suptGroupNo)
         {
             cPotlSupt frame;
             int frameC = 0;
-            int noofBeamGroups;
+            int noofBeamGroups = 0;
             string stdFile;
 
             // Define your file paths
@@ -53,7 +53,7 @@ namespace SupA.Lib.FEA
                 bool beamAvailableforLoads = false;
 
                 // Create the FEM Model Geometry
-                CreateFEModelGeometry(frame, collAdjacentSuptPoints, out noofBeamGroups, out beamAvailableforLoads, suptGroupNo, out stdFile);
+                mCreateFEModelGeometry.CreateFEModelGeometry(frame, collAdjacentSuptPoints, out noofBeamGroups, beamAvailableforLoads, suptGroupNo, out stdFile);
 
                 // Open and analyze the STAAD file
                 using (var objOpenSTAAD = new OpenSTAAD())
@@ -96,7 +96,7 @@ namespace SupA.Lib.FEA
                         mSelectBestPotlSupt.SelectBestPotlSupt(collAcceptableSctnsProps, frame);
 
                         // Create STAAD input file with selected section
-                        CreateFEModelGeometry(frame, collAdjacentSuptPoints, out _, out _, suptGroupNo, out stdFile);
+                        mCreateFEModelGeometry.CreateFEModelGeometry(frame, collAdjacentSuptPoints, out noofBeamGroups, beamAvailableforLoads, suptGroupNo, out stdFile);
                     }
                 }
 
@@ -109,24 +109,27 @@ namespace SupA.Lib.FEA
 
         public static void ExportFEMresults(cPotlSupt Frame, int SuptGroupNo)
         {
-            object TmpExportArr;
+            object[,] TmpExportArr;
             int RangeRowEnd;
+            
+            Application excelApp = new Application();
+            Workbook workbook = excelApp.Workbooks.Open("YourWorkbookPath.xlsx");
+            Worksheet outputWorksheet = (Worksheet)workbook.Worksheets["Output"];
 
             // Export beam property types
-            RangeRowEnd = FindLastFullCell("Output", 11, 6);
-            TmpExportArr = Interaction.CallByName(Sheets("Output").Range("E11:K" + RangeRowEnd), "value", CallType.Get);
-            ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\EndofBeamOutput-" + Frame.PotlSuptNo, "csv", true);
+            RangeRowEnd = FindLastFullCell(outputWorksheet, 11, 6);
+            TmpExportArr = (object[,])Interaction.CallByName(outputWorksheet.Range["E11:K" + RangeRowEnd], "value", CallType.Get);
+            mExportArrtoCSVFile.ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\EndofBeamOutput-" + Frame.PotlSuptNo, "csv", true);
 
             // Export node coordinates
-            RangeRowEnd = FindLastFullCell("Output", 10, 14);
-            TmpExportArr = Interaction.CallByName(Sheets("Output").Range("N10:AA" + RangeRowEnd), "value", CallType.Get);
-            ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\AlongBeamOutput-" + Frame.PotlSuptNo, "csv", true);
+            RangeRowEnd = FindLastFullCell(outputWorksheet, 10, 14);
+            TmpExportArr = (object[,])Interaction.CallByName(outputWorksheet.Range["N10:AA" + RangeRowEnd], "value", CallType.Get);
+            mExportArrtoCSVFile.ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\AlongBeamOutput-" + Frame.PotlSuptNo, "csv", true);
         }
 
-        public static int FindLastFullCell(string Sheetname, int RowNo, int ColNo)
+        public static int FindLastFullCell(Worksheet sheet, int RowNo, int ColNo)
         {
-            Worksheet sheet = (Worksheet)Globals.ThisAddIn.Application.ActiveWorkbook.Sheets[Sheetname];
-            Microsoft.Office.Interop.Excel.Range cell = null;
+            Microsoft.Office.Interop.Excel.Range cell;
 
             do
             {

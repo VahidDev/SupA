@@ -4,7 +4,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mRunClashandClearanceCheck
     {
-        public bool RunClashandClearanceCheck(List<cClashData> collLocalClashData, float[] eleBBoxLLCoordArray, float[] eleBBoxULCoordArray, string[] disciplinesToIgnore = null, string[] elementsToIgnore = null, string[] typesToIgnore = null)
+        public static bool RunClashandClearanceCheck(List<cClashData> collLocalClashData, float[] eleBBoxLLCoordArray, float[] eleBBoxULCoordArray, string[] disciplinesToIgnore = null, string[] elementsToIgnore = null, string[] typesToIgnore = null)
         {
             disciplinesToIgnore ??= new string[] { "XYZ" }; // Default if null
             elementsToIgnore ??= new string[] { "XYZ" };
@@ -35,7 +35,7 @@ namespace SupA.Lib.DataManipulation
             return noOfClashes > 0;
         }
 
-        private void CreateClashDataEleDiscTypeCollection(cClashData clashData, List<cClashData> clashDataCollection)
+        private static void CreateClashDataEleDiscTypeCollection(cClashData clashData, List<cClashData> clashDataCollection)
         {
             clashDataCollection.Clear();
 
@@ -55,7 +55,7 @@ namespace SupA.Lib.DataManipulation
             }
         }
 
-        private bool ClashReview(List<cClashData> clashDataCollection, string[] disciplinesToIgnore, string[] elementsToIgnore, string[] typesToIgnore)
+        private static bool ClashReview(List<cClashData> clashDataCollection, string[] disciplinesToIgnore, string[] elementsToIgnore, string[] typesToIgnore)
         {
             bool clashReviewResult = true;
 

@@ -4,9 +4,9 @@ using SupA.Lib.Utils;
 
 namespace SupA.Lib.DataManipulation
 {
-    public class mSortCollection
+    public class mSortCollection<T> where T : class
     {
-        public static List<cPotlSupt> SortCollection(List<cPotlSupt> C, string ColtoSort)
+        public static List<T> SortCollection(List<T> C, string ColtoSort)
         {
             int n = C.Count;
             // Special case - sorting by PathsUnTravelledCount
@@ -14,7 +14,7 @@ namespace SupA.Lib.DataManipulation
             {
                 return SortCollectionbyPathsunT(C);
             }
-            if (n == 0) return new List<cPotlSupt>();
+            if (n == 0) return new List<T>();
 
             int[] Index = new int[n]; // allocate index array
             for (int I = 0; I < n; I++) Index[I] = I + 1; // fill index array
@@ -30,7 +30,7 @@ namespace SupA.Lib.DataManipulation
                 Heapify(C, ColtoSort, Index, 0, M - 1);
             }
 
-            List<cPotlSupt> C2 = new List<cPotlSupt>();
+            var C2 = new List<T>();
             for (int I = 0; I < n; I++) C2.Add(C[Index[I] - 1]); // fill output collection
 
             return C2;
@@ -43,7 +43,7 @@ namespace SupA.Lib.DataManipulation
             Index[J] = Temp;
         }
 
-        private static void Heapify(List<cPotlSupt> c, string colToSort, int[] index, int i, int n)
+        private static void Heapify(List<T> c, string colToSort, int[] index, int i, int n)
         {
             // Heap order rule: a[i] >= a[2*i+1] and a[i] >= a[2*i+2]
             long nDiv2 = n / 2;
@@ -67,18 +67,18 @@ namespace SupA.Lib.DataManipulation
             }
         }
 
-        public static List<cPotlSupt> SortCollectionbyPathsunT(List<cPotlSupt> C)
+        public static List<T> SortCollectionbyPathsunT(List<T> C)
         {
             cPotlSupt M;
             int MaxPathsunT = 0;
             int I;
             int I2;
-            List<cPotlSupt> C2 = new List<cPotlSupt>();
+            var C2 = new List<T>();
 
             // See what the maximum pathsuntravelled count value is in our entire list
-            foreach (cPotlSupt item in C)
+            foreach (var item in C)
             {
-                MaxPathsunT = Math.Max(MaxPathsunT, item.PathsUnTravelledCount);
+                MaxPathsunT = Math.Max(MaxPathsunT, (item as cPotlSupt).PathsUnTravelledCount);
             }
 
             for (I = 0; I <= MaxPathsunT; I++)
@@ -86,7 +86,7 @@ namespace SupA.Lib.DataManipulation
                 I2 = 1;
                 while (I2 <= C.Count)
                 {
-                    if (((cPotlSupt)C[I2]).PathsUnTravelledCount == I)
+                    if ((C[I2] as cPotlSupt).PathsUnTravelledCount == I)
                     {
                         C2.Add(C[I2]);
                         C.RemoveAt(I2);

@@ -70,7 +70,7 @@ namespace SupA.Lib.DataManipulation
                 CollExistingSteel = ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData-" + I,
                 ".csv", ",", Existingsteel, typeof(cSteel));
 
-                mExportColltoCSVFile<object>.ExportColltoCSVFile(CollAllSelectedSuptLocns, "CollSelectedSuptLocns", "csv", true);
+                mExportColltoCSVFile<object>.ExportColltoCSVFile(CollAllSelectedSuptLocns, "CollSelectedSuptLocns", "csv", StdSupAOutput: true);
 
                 // Import the tubi specific concrete definition file
                 var ExistingConcrete = new cSteel();

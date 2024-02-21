@@ -34,7 +34,7 @@
         private string pConnBrace10Dir;
         private string pConnBrace11Dir;
         private string pConnBrace12Dir;
-        private string pSuptBeamPerpDirFromPipeAxis;
+        private int pSuptBeamPerpDirFromPipeAxis;
 
         public string WriteAll(float RowNo = 0)
         {
@@ -219,6 +219,6 @@
         public string PConnBrace10Dir { get => pConnBrace10Dir; set => pConnBrace10Dir = value; }
         public string PConnBrace11Dir { get => pConnBrace11Dir; set => pConnBrace11Dir = value; }
         public string PConnBrace12Dir { get => pConnBrace12Dir; set => pConnBrace12Dir = value; }
-        public string PSuptBeamPerpDirFromPipeAxis { get => pSuptBeamPerpDirFromPipeAxis; set => pSuptBeamPerpDirFromPipeAxis = value; }
+        public int PSuptBeamPerpDirFromPipeAxis { get => pSuptBeamPerpDirFromPipeAxis; set => pSuptBeamPerpDirFromPipeAxis = value; }
     }
 }
