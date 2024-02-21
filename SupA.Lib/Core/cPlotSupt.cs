@@ -6,7 +6,7 @@ namespace SupA.Lib.Core
     {
         private bool pisClosed;
         private bool pisInvalid;
-        private List<object> pPathsUnTravelled;
+        private List<cGroupNode> pPathsUnTravelled;
         private int pPathsUnTravelledCount;
         private List<cSteel> pBeamsinFrame;
         private List<object> pBeamsExcluded;
@@ -31,7 +31,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllPathsUnTravelled(float RowNo)
         {
-            List<object> Group = pPathsUnTravelled;
+            List<cGroupNode> Group = pPathsUnTravelled;
             string[] Arr = new string[Group.Count + 1];
             if (Group.Count == 0)
                 Arr[1] = "potlsupt" + RowNo + "," + "," + pLength + "," + pConntoExistingSteelC.Count + "," + pisClosed + "," + pPotlSuptNo + "," + pPotlSuptChildof;
@@ -145,7 +145,7 @@ namespace SupA.Lib.Core
             set { pPathsUnTravelledCount = value; }
         }
 
-        public List<object> PathsUnTravelled
+        public List<cGroupNode> PathsUnTravelled
         {
             get { return pPathsUnTravelled; }
             set { pPathsUnTravelled = value; }
