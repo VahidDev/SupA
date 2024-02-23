@@ -1,11 +1,12 @@
 ﻿using SupA.Lib.Core;
 using SupA.Lib.Initialization;
+using SupA.Lib.RoutePotentialSuptFrames;
 
 namespace SupA.Lib.DataManipulation
 {
     public class mRoutePotentialSuptFrames
     {
-        public static void RoutePotentialSuptFrames(List<cPotlSupt> collPotlSuptFrameDetails, List<cGroupNode> collFrameNodeMapGrouped, List<object> collGroupNodeBeams, int noOfSuptBeamEndCoords, int suptGroupNo)
+        public static void RoutePotentialSuptFrames(List<cPotlSupt> collPotlSuptFrameDetails, List<cGroupNode> collFrameNodeMapGrouped, List<cSteel> collGroupNodeBeams, int noOfSuptBeamEndCoords, int suptGroupNo)
         {
             var arrDirnsToAttempt = new string[,] { { "", "E" }, { "", "N" }, { "", "U" }, { "", "W" }, { "", "S" }, { "", "D" } };
             int noOfLoops = 0;
@@ -50,7 +51,7 @@ namespace SupA.Lib.DataManipulation
             }
 
             // Further processing steps as per original VBA code
-            FilterPotlSuptFramestoFeasible(collPotlSuptFrameDetails, collFrameNodeMapGrouped, collGroupNodeBeams);
+            mFillterPotlSuptFramestoFeasible.FilterPotlSuptFramestoFeasible(collPotlSuptFrameDetails, collFrameNodeMapGrouped, collGroupNodeBeams);
             MakePotlSuptFramesBeamsUnique(collPotlSuptFrameDetails);
         }
 
@@ -69,6 +70,18 @@ namespace SupA.Lib.DataManipulation
                 }
                 potlFrame.BeamsinFrame = newBeamsInFrame;
             }
+        }
+
+        public static List<cGroupNode> CopyCollSuptBeamGroupNodes(List<cGroupNode> CollSuptBeamGroupNodes)
+        {
+            List<cGroupNode> CollSuptBeamGroupNodesTmp = new List<cGroupNode>();
+
+            foreach (var groupNode in CollSuptBeamGroupNodes)
+            {
+                CollSuptBeamGroupNodesTmp.Add(groupNode);
+            }
+
+            return CollSuptBeamGroupNodesTmp;
         }
     }
 }

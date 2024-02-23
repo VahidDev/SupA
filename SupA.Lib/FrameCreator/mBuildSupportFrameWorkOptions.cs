@@ -2,23 +2,24 @@
 using SupA.Lib.Core;
 using SupA.Lib.DataManipulation;
 using SupA.Lib.Initialization;
+using SupA.Lib.Models;
 
 namespace SupA.Lib.FrameCreator
 {
     public class mBuildSupportFrameWorkOptions<T> where T : class
     {
         public List<cPotlSupt> BuildSupportFrameWorkOptions(
-        List<cSuptPoints> collAdjacentSuptPoints,
-        object[] arrNoofLevels,
-        List<object> collLocalClashData,
-        List<cSteelDisc> collLocalExistingSteelDisc,
-        int noofSuptBeamEndCoords,
-        int suptGroupNo)
+            List<cSuptPoints> collAdjacentSuptPoints,
+            object[,] arrNoofLevels,
+            List<cClashData> collLocalClashData,
+            List<cSteelDisc> collLocalExistingSteelDisc,
+            int noofSuptBeamEndCoords,
+            int suptGroupNo)
         {
             List<cSteel> collSuptBeams;
-            List<object> collExtendedBeams;
-            List<object> collTrimSteels;
-            List<object> collVerticalCols;
+            List<cSteel> collExtendedBeams;
+            List<cSteel> collTrimSteels;
+            List<cSteel> collVerticalCols;
             List<cSteelDisc> collSuptBeamsDisc;
             List<cSteelDisc> collExtendedBeamsDisc;
             List<cSteelDisc> collTrimSteelsDisc;
@@ -29,7 +30,7 @@ namespace SupA.Lib.FrameCreator
             List<cGroupNode> collFrameNodeMapGrouped;
             List<cGroupNode> collIntersectionGroupNodes;
             List<cPotlSupt> collPotlSuptFrameDetails;
-            List<object> collGroupNodeBeams;
+            List<cSteel> collGroupNodeBeams;
 
             // Calculate the centre point of our supports.
             // This is used to make sure there is a group and intersection Node at this point
@@ -37,21 +38,21 @@ namespace SupA.Lib.FrameCreator
             cSuptPoints suptPointEffectiveCentre = mGroupSimilarFrameNodes.SetEffectiveCentreofAdjacentSupts(collAdjacentSuptPoints);
 
             // Now create the collection of horizontal beams required to support these pipes
-            collSuptBeams = CreateMinSuptBeams(collAdjacentSuptPoints, arrNoofLevels, noofSuptBeamEndCoords, suptGroupNo);
+            collSuptBeams = mCreateMinSuptBeams.CreateMinSuptBeams(collAdjacentSuptPoints, arrNoofLevels, out noofSuptBeamEndCoords, suptGroupNo);
 
             // Now create extensions to the minimum length support beams and store these in CreateExtendedBeams
             collExtendedBeams = mCreateExtendedBeams.CreateExtendedBeams(collSuptBeams, collLocalExistingSteelDisc, collLocalClashData, suptGroupNo);
 
             // Now create all potential trim steel which could be part of our support
-            collTrimSteels = CreateTrimSteel(collSuptBeams, collAdjacentSuptPoints, collLocalExistingSteelDisc, collLocalClashData, suptGroupNo);
+            collTrimSteels = mCreateTrimSteel.CreateTrimSteel(collSuptBeams, collAdjacentSuptPoints, collLocalExistingSteelDisc, collLocalClashData, suptGroupNo);
 
-            collSuptBeamsDisc = DiscretiseBeamsforFrames(collSuptBeams);
+            collSuptBeamsDisc = mDiscretiseBeamsforFrames.DiscretiseBeamsforFrames(collSuptBeams);
             mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(collSuptBeamsDisc, "CollSuptBeamsDisc-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
-            collExtendedBeamsDisc = DiscretiseBeamsforFrames(collExtendedBeams);
+            collExtendedBeamsDisc = mDiscretiseBeamsforFrames.DiscretiseBeamsforFrames(collExtendedBeams);
             mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(collExtendedBeamsDisc, "CollExtendedBeamsDisc-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
-            collTrimSteelsDisc = DiscretiseBeamsforFrames(collTrimSteels);
+            collTrimSteelsDisc = mDiscretiseBeamsforFrames.DiscretiseBeamsforFrames(collTrimSteels);
             mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(collTrimSteelsDisc, "CollTrimSteelsDisc-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
             // Now combine all discretised beam points into a single collection for use in CreateVerticalCols
@@ -63,9 +64,9 @@ namespace SupA.Lib.FrameCreator
             mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(collAllDiscBeams, "CollAllDiscBeams-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
             // Use collAllDiscBeams to create vertical columns which could be part of our support
-            collVerticalCols = CreateVerticalCols(collAllDiscBeams, collLocalClashData, suptGroupNo);
-            collVerticalColsDisc = DiscretiseBeamsforFrames(collVerticalCols);
-            mExportColltoCSVFile<object>.ExportColltoCSVFile(collVerticalColsDisc, "CollVerticalColsDisc-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
+            collVerticalCols = mCreateVerticalCols.CreateVerticalCols(collAllDiscBeams, collLocalClashData, suptGroupNo);
+            collVerticalColsDisc = mDiscretiseBeamsforFrames.DiscretiseBeamsforFrames(collVerticalCols);
+            mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(collVerticalColsDisc, "CollVerticalColsDisc-F" + (suptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
             // Now combine all discretised beams and columns (excluding existing steel discretised nodes) into a single collection
             // for use as the basis of creating frame options
@@ -78,7 +79,7 @@ namespace SupA.Lib.FrameCreator
             // Now Group the nodes which can be treated as a single entity
             collFrameNodeMapGrouped = new List<cGroupNode>();
             collIntersectionGroupNodes = new List<cGroupNode>();
-            mGroupSimilarFrameNodes.GroupSimilarFrameNodes(collFrameNodeMap, collVerticalCols, collFrameNodeMapGrouped, collIntersectionGroupNodes, collGroupNodeBeams, collAdjacentSuptPoints, suptGroupNo, suptPointEffectiveCentre);
+            mGroupSimilarFrameNodes.GroupSimilarFrameNodes(collFrameNodeMap, collVerticalCols, collFrameNodeMapGrouped, out collIntersectionGroupNodes, out collGroupNodeBeams, collAdjacentSuptPoints, suptGroupNo, suptPointEffectiveCentre);
 
             // Now build collPotlSuptFrameDetails with start points
             collPotlSuptFrameDetails = PopulateStartsinPotlFrameColl(collIntersectionGroupNodes, collGroupNodeBeams, suptPointEffectiveCentre);
@@ -94,10 +95,10 @@ namespace SupA.Lib.FrameCreator
             cSuptPoints suptPoint;
             cSteelDisc discSteel;
             bool removeDiscPoint;
-            float LL1c = 1;
+            int LL1c = 1;
             while (LL1c <= collAllDiscBeams.Count)
             {
-                discSteel = collAllDiscBeams[(int)LL1c];
+                discSteel = collAllDiscBeams[LL1c];
                 removeDiscPoint = false;
                 foreach (cSuptPoints item in collAdjacentSuptPoints)
                 {
@@ -109,7 +110,7 @@ namespace SupA.Lib.FrameCreator
                 }
                 if (removeDiscPoint)
                 {
-                    collAllDiscBeams.Remove(discSteel);
+                    collAllDiscBeams.RemoveAt(LL1c);
                     LL1c--;
                 }
                 LL1c++;

@@ -133,7 +133,7 @@ namespace SupA.Lib.RoutePotentialSuptFrames
                             {
                                 NodeUniqueFlag = false;
                             }
-                            NewPotlSuptFrame.Length = NewPotlSuptFrame.Length + Beam.Length;
+                            NewPotlSuptFrame.Length = (float)(NewPotlSuptFrame.Length + Beam.Length);
                             DuplicateTieIn = false;
                             foreach (var ExistingSteelTieIn in NewPotlSuptFrame.ConntoExistingSteelC)
                             {
@@ -263,7 +263,7 @@ namespace SupA.Lib.RoutePotentialSuptFrames
             return isAlreadyInFrame;
         }
 
-        public cPotlSupt CopyCurrPotlSuptFrame(cPotlSupt CurrPotlSuptFrame)
+        public static cPotlSupt CopyCurrPotlSuptFrame(cPotlSupt CurrPotlSuptFrame)
         {
             cPotlSupt NewPotlSuptFrame = new cPotlSupt();
 

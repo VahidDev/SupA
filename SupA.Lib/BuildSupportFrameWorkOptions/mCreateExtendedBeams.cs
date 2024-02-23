@@ -8,7 +8,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
 {
     public class mCreateExtendedBeams
     {
-        public List<cSteel> CreateExtendedBeams(List<cSteel> CollSuptBeams, List<cSteelDisc> CollLocalExistingSteelDisc, List<cClashData> CollLocalClashData, int SuptGroupNo)
+        public static List<cSteel> CreateExtendedBeams(List<cSteel> CollSuptBeams, List<cSteelDisc> CollLocalExistingSteelDisc, List<cClashData> CollLocalClashData, int SuptGroupNo)
         {
             // Definition of all function specific private variables
             // Loop Variables
@@ -112,7 +112,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             return CollExtendedBeams;
         }
 
-        public cSteel WriteExtendedBeamData(float[] CoordArrayBeamEnd1, float[] CoordArrayBeamEnd2, cSteel SuptBeam, float ExtensionLen, string ConnectingSteelStart, string ConnectingSteelEnd, string StartorEnd, int PerpDir, int LevelNo, int BeamModelName)
+        public static cSteel WriteExtendedBeamData(float[] CoordArrayBeamEnd1, float[] CoordArrayBeamEnd2, cSteel SuptBeam, float ExtensionLen, string ConnectingSteelStart, string ConnectingSteelEnd, string StartorEnd, int PerpDir, int LevelNo, int BeamModelName)
         {
             cSteel ExtendedBeam = new cSteel();
 

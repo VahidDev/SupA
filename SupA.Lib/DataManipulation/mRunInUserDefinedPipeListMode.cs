@@ -88,7 +88,7 @@ namespace SupA.Lib.DataManipulation
                 // Merge the concrete and existing steel collections
                 CollExistingSteel = mBuildSupportFrameWorkOptions<cSteel>.MergeCollection<cSteel, cSteel, object, object, object, object>(CollExistingSteel, CollExistingConcrete);
 
-                CollExistingSteelDisc = DiscretiseBeamsforFrames(CollExistingSteel);
+                CollExistingSteelDisc = mDiscretiseBeamsforFrames.DiscretiseBeamsforFrames(CollExistingSteel);
                 // If pubBOOLTraceOn then ExportColltoCSVFile(CollExistingSteelDisc, "CollExistingSteelDisc", "csv");
 
                 // The optimisation code below is no longer really required as it's baked into the input

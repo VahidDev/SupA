@@ -1,7 +1,10 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.Office.Interop.Excel;
+using Microsoft.VisualBasic;
 using SupA.Lib.Core;
 using SupA.Lib.DataManipulation;
 using System.Collections.ObjectModel;
+
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SupA.Lib.Initialization
 {
@@ -61,7 +64,10 @@ namespace SupA.Lib.Initialization
             mWriteActivityLog.WriteActivityLog("SupA Run Started. See Time Stamp for Further Information", DateTime.Now, "first entry");
 
             // Set all project wide and public variables
-            Excel.Workbook activeWorkbook = ((Excel.Application)Excel.Application).ActiveWorkbook;
+            Application excelApp = new Application();
+            Workbook activeWorkbook = excelApp.ActiveWorkbook;
+            Worksheet workSheet = (Worksheet)activeWorkbook.Sheets["SheetName"];
+
             strDirFolder = Path.GetDirectoryName(activeWorkbook.FullName) + @"\Xl\SupA.xlsm";
             strRunName = ImportFlagTxt(strDirFolder + @"\PowerShell\", "SupARunName", ".txt", ",");
             strProjName = ImportFlagTxt(strDirFolder + @"\PowerShell\", "SupAProjName", ".txt", ",");
@@ -69,8 +75,8 @@ namespace SupA.Lib.Initialization
             strDirFolder = strDirFolder + @"\Dirs\";
             pubstrFolderPath = ImportFlagTxt(strDirFolder, "StrDataFolder", ".csv", ",") + str3DEnv + @"\" + strProjName + @"\" + strRunName + @"\";
             pubThreeDModelSoftware = str3DEnv;
-            pubBOOLTraceOn = Convert.ToBoolean(activeWorkbook.Sheets["SheetName"].Range["pubBOOLTraceOn"].Value); // Replace "SheetName" with actual sheet name
-            pubStrSuptSelectionMode = !string.IsNullOrEmpty(StartMode) ? StartMode : Convert.ToString(activeWorkbook.Sheets["SheetName"].Range["pubStrSuptSelectionMode"].Value); // Replace "SheetName" with actual sheet name
+            pubBOOLTraceOn = Convert.ToBoolean(workSheet.Range["pubBOOLTraceOn"].Value); // Replace "SheetName" with actual sheet name
+            pubStrSuptSelectionMode = !string.IsNullOrEmpty(StartMode) ? StartMode : Convert.ToString(workSheet.Range["pubStrSuptSelectionMode"].Value); // Replace "SheetName" with actual sheet name
             PiVal = Math.PI;
             pubMatlCostperkg = 2;
             pubFabricationHours = 3.5f;
@@ -80,7 +86,7 @@ namespace SupA.Lib.Initialization
             pubActivityLog = new Collection<object>();
 
             // This variable is specific to the support point selector functions
-            pubNoofCategories = Convert.ToInt32(activeWorkbook.Sheets["SheetName"].Range["NoofCategories"].Value); // Replace "SheetName" with actual sheet name
+            pubNoofCategories = Convert.ToInt32(workSheet.Range["NoofCategories"].Value); // Replace "SheetName" with actual sheet name
 
             // This is temporary code
             //SupAProgressBar.Show(); // Commented out as WinForms ProgressBar is not directly equivalent to VBA UserForm

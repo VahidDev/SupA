@@ -22,7 +22,7 @@ namespace SupA.Lib.Core
         private string pPotlSuptChildof;
         private List<object> pCoordStringENColl;
         private List<cSteel> pBeamsinFrameratlized;
-        private List<object> pBasePlateDetailsinFrame;
+        private List<cBasePlate> pBasePlateDetailsinFrame;
         private float pFabricationCost;
         private float pMatlCost;
         private float pTotalCost;
@@ -113,7 +113,7 @@ namespace SupA.Lib.Core
 
         public object WriteAllBasePlateDetailsinFrame(float RowNo)
         {
-            List<object> Group = pBasePlateDetailsinFrame;
+            List<cBasePlate> Group = pBasePlateDetailsinFrame;
             string[] Arr = new string[Group.Count + 1];
             string InternalPotlSuptNo = pPotlSuptNo;
             float tmpFrameRanking = pFrameRanking;
@@ -235,7 +235,7 @@ namespace SupA.Lib.Core
             set { pBeamsinFrameratlized = value; }
         }
 
-        public List<object> BasePlateDetailsinFrame
+        public List<cBasePlate> BasePlateDetailsinFrame
         {
             get { return pBasePlateDetailsinFrame; }
             set { pBasePlateDetailsinFrame = value; }

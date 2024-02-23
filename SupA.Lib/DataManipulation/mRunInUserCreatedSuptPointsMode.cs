@@ -50,7 +50,7 @@ namespace SupA.Lib.DataManipulation
             mRedEntireStruModtoLocaltoTubi.RedEntireStruModtoLocaltoTubi(CollExistingSteel, CollSuptPointsinArea);
             if (mSubInitializationSupA.pubBOOLTraceOn) mExportColltoCSVFile<cSteel>.ExportColltoCSVFile(CollExistingSteel, "CollExistingSteelwithFacesRed", "csv");
 
-            CollExistingSteelDisc = DiscretiseBeamsforFrames(CollExistingSteel);
+            CollExistingSteelDisc = mDiscretiseBeamsforFrames.DiscretiseBeamsforFrames(CollExistingSteel);
 
             // Reduce concrete points to local concrete points and append these to CollExistingSteelDisc
             if (mSubInitializationSupA.pubBOOLTraceOn) mExportColltoCSVFile<cSteelDisc>.ExportColltoCSVFile(CollExistingSteelDisc, "CollExistingSteelDisc", "csv");

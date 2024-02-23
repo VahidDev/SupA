@@ -142,7 +142,11 @@ namespace SupA.Lib.FEA
 
         public static double[,] ExportMaxFEAResultsperBeam(cPotlSupt Frame, int NoofBeamGroups, TTblSectionProperties PreferedSctnProp)
         {
-            Worksheet sheet = Globals.ThisAddIn.Application.ActiveWorkbook.Sheets["Output"];
+            Application excelApp = new Application();
+            Workbook activeWorkbook = excelApp.ActiveWorkbook;
+            Worksheet sheet = (Worksheet)activeWorkbook.Sheets["Output"];
+
+            //Worksheet sheet = Globals.ThisAddIn.Application.ActiveWorkbook.Sheets["Output"];
             sheet.Activate();
 
             double[,] ArrtoRtn = new double[NoofBeamGroups, 6];

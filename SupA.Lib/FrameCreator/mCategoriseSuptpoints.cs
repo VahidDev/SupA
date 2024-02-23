@@ -45,7 +45,7 @@ namespace SupA.Lib.FrameCreator
                         SetSharedLevel(SuptLL2, LL1c, SharedLevelNo[LL1c]);
                         foreach (var SuptLL3 in CollAdjacentSuptPoints)
                         {
-                            if (!CheckifSharedLevelisSet(SuptLL3, LL1c) && mCoordinateCheck.CoordinateCheck("alongsingleaxis", ReturnSharedLevelEltoCheck(SuptLL3, LL1c), ReturnSharedLevelEltoCheck(SuptLL2, LL1c) + mSubInitializationSupA.pubTblDefinitionofAdjacentSupport.AllowableTOSDiff, ReturnSharedLevelEltoCheck(SuptLL2, LL1c) - mSubInitializationSupA.pubTblDefinitionofAdjacentSupport.AllowableTOSDiff))
+                            if (!CheckifSharedLevelisSet(SuptLL3, LL1c) && mCoordinateCheck.CoordinateCheck("alongsingleaxis", mCreateCoordArray.CreateCoordArray(ReturnSharedLevelEltoCheck(SuptLL3, LL1c), "float"), mCreateCoordArray.CreateCoordArray(ReturnSharedLevelEltoCheck(SuptLL2, LL1c) + mSubInitializationSupA.pubTblDefinitionofAdjacentSupport.AllowableTOSDiff, "float"), mCreateCoordArray.CreateCoordArray(ReturnSharedLevelEltoCheck(SuptLL2, LL1c) - mSubInitializationSupA.pubTblDefinitionofAdjacentSupport.AllowableTOSDiff, "float")))
                             {
                                 SetSharedLevel(SuptLL3, LL1c, SharedLevelNo[LL1c]);
                             }

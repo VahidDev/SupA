@@ -3,13 +3,12 @@ using SupA.Lib.Core;
 using SupA.Lib.DataManipulation;
 using SupA.Lib.Initialization;
 using SupA.Lib.Utils;
-using static SupA.Lib.CoordinateAndAngleManipulation.mCalculateDirBasedonCoords;
 
 namespace SupA.Lib.BuildSupportFrameWorkOptions
 {
     public class mGroupSimilarFrameNodes
     {
-        public static void GroupSimilarFrameNodes(List<cRouteNode> CollFrameNodeMap, List<object> CollVerticalCols, List<cGroupNode> CollFrameNodeMapGrouped, List<cGroupNode> CollIntersectionGroupNodes, List<cSteel> CollGroupNodeBeams, List<cSuptPoints> CollAdjacentSuptPoints, int SuptGroupNo, cSuptPoints suptpointEffectiveCentre)
+        public static void GroupSimilarFrameNodes(List<cRouteNode> CollFrameNodeMap, List<cSteel> CollVerticalCols, List<cGroupNode> CollFrameNodeMapGrouped, out List<cGroupNode> CollIntersectionGroupNodes, out List<cSteel> CollGroupNodeBeams, List<cSuptPoints> CollAdjacentSuptPoints, int SuptGroupNo, cSuptPoints suptpointEffectiveCentre)
         {
             int LL1c = 0;
             bool ContinueLL2Flag;
@@ -138,7 +137,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
                             Beam.EndE = GroupNodeLL2.GroupedNodes[0].Easting;
                             Beam.EndN = GroupNodeLL2.GroupedNodes[0].Northing;
                             Beam.EndU = GroupNodeLL2.GroupedNodes[0].Upping;
-                            Beam.Dir = CoordinateCalculator.CalculateDirBasedonCoords(Beam.StartE, Beam.StartN, Beam.StartU, Beam.EndE, Beam.EndN, Beam.EndU);
+                            Beam.Dir = mCalculateDirBasedonCoords.CalculateDirBasedonCoords(Beam.StartE, Beam.StartN, Beam.StartU, Beam.EndE, Beam.EndN, Beam.EndU);
                             Beam.Length = (float)Math.Sqrt(Math.Pow(Beam.EndE - Beam.StartE, 2) + Math.Pow(Beam.EndN - Beam.StartN, 2) + Math.Pow(Beam.EndU - Beam.StartU, 2));
                             mDefinePerpsandParls.DefinePerpsandParls(ref Beam.Dir, out Beam.MajorAxisGlobaldir, out Beam.MinorAxisGlobaldir, out perpAxis1No, out perpAxis2No, out parlAxisNo);
                             Beam.Jusline = "CTOP";
@@ -330,7 +329,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
             }
         }
 
-        public static bool CheckIfNodeShouldBeInGroup(cRouteNode RouteNodeLL3, cRouteNode RoutenodeLL4, List<object> CollVerticalCols, cSuptPoints suptpointEffectiveCentre)
+        public static bool CheckIfNodeShouldBeInGroup(cRouteNode RouteNodeLL3, cRouteNode RoutenodeLL4, List<cSteel> CollVerticalCols, cSuptPoints suptpointEffectiveCentre)
         {
             float[] CoordArrayLL3 = new float[5];
             float[] CoordArrayLL4 = new float[5];
