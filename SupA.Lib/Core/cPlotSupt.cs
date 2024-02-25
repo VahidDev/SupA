@@ -9,7 +9,7 @@ namespace SupA.Lib.Core
         private List<cGroupNode> pPathsUnTravelled;
         private int pPathsUnTravelledCount;
         private List<cSteel> pBeamsinFrame;
-        private List<object> pBeamsExcluded;
+        private List<cSteel> pBeamsExcluded;
         private List<object> pDirnsUntravelled;
         private List<string> pGroupNodesTravelled;
         private List<cGroupNode> pGroupNodesinFrame;
@@ -151,7 +151,7 @@ namespace SupA.Lib.Core
             set { pPathsUnTravelled = value; }
         }
 
-        public List<object> BeamsExcluded
+        public List<cSteel> BeamsExcluded
         {
             get { return pBeamsExcluded; }
             set { pBeamsExcluded = value; }

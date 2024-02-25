@@ -4,7 +4,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mSelectBestSuptFrame
     {
-        public void SelectBestSuptFrame(List<cPotlSupt> collPotlSuptFrameDetails)
+        public static void SelectBestSuptFrame(List<cPotlSupt> collPotlSuptFrameDetails)
         {
             collPotlSuptFrameDetails = collPotlSuptFrameDetails.OrderBy(x => x.TotalCost).ToList();
 

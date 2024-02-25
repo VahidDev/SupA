@@ -65,7 +65,6 @@
         public string TubeName => pTubeName;
         public string TubeType => pTubeType;
         public string ComponentRef => pComponentRef;
-        public float ABor => pABor;
         public string ADir => pADir;
         public float AEast => pAEast;
         public float ANorth => pANorth;
@@ -82,7 +81,6 @@
         public string FlagConnBraAtEnd => pFlagConnBraAtEnd;
         public float ConnBraAtStartBor => pConnBraAtStartBor;
         public float ConnBraAtEndBor => pConnBraAtEndBor;
-        public float NoOfEstSuptsReqdonTube => pNoOfEstSuptsReqdonTube;
 
         // Let Properties
         public string TubeNameProperty
@@ -97,9 +95,10 @@
         {
             set => pComponentRef = value;
         }
-        public float ABorProperty
+        public float ABor
         {
             set => pABor = value;
+            get => pABor;
         }
         public string ADirProperty
         {
@@ -165,9 +164,10 @@
         {
             set => pConnBraAtEndBor = value;
         }
-        public float NoOfEstSuptsReqdonTubeProperty
+        public float NoOfEstSuptsReqdonTube
         {
             set => pNoOfEstSuptsReqdonTube = value;
+            get => pNoOfEstSuptsReqdonTube;
         }
     }
 }

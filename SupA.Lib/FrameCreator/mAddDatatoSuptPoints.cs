@@ -21,7 +21,7 @@ namespace SupA.Lib.FrameCreator
             public double OD { get; set; }
         }
 
-        public void AddDatatoSuptPoints(List<cSuptPoints> collSuptPointsinArea)
+        public static void AddDatatoSuptPoints(List<cSuptPoints> collSuptPointsinArea)
         {
             // Write all data from pubTblExtendedPHASST to the Supt objects in collSuptPointsinArea
             foreach (var supt in collSuptPointsinArea)

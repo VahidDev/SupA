@@ -7,7 +7,7 @@ namespace SupA.Lib.BuildSupportFrameWorkOptions
 {
     public class mCreateMinSuptBeams
     {
-        public static List<cSteel> CreateMinSuptBeams(List<cSuptPoints> CollAdjacentSuptPoints, object[,] arrNoofLevels, out int NoofSuptBeamEndCoords, int SuptGroupNo)
+        public static List<cSteel> CreateMinSuptBeams(List<cSuptPoints> CollAdjacentSuptPoints, int[,] arrNoofLevels, out int NoofSuptBeamEndCoords, int SuptGroupNo)
         {
             var CollSuptBeams = new List<cSteel>();
             int LLC1, LLC2;

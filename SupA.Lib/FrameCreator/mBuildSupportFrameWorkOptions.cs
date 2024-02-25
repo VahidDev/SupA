@@ -8,9 +8,9 @@ namespace SupA.Lib.FrameCreator
 {
     public class mBuildSupportFrameWorkOptions<T> where T : class
     {
-        public List<cPotlSupt> BuildSupportFrameWorkOptions(
+        public static List<cPotlSupt> BuildSupportFrameWorkOptions(
             List<cSuptPoints> collAdjacentSuptPoints,
-            object[,] arrNoofLevels,
+            int[,] arrNoofLevels,
             List<cClashData> collLocalClashData,
             List<cSteelDisc> collLocalExistingSteelDisc,
             int noofSuptBeamEndCoords,
@@ -82,7 +82,7 @@ namespace SupA.Lib.FrameCreator
             mGroupSimilarFrameNodes.GroupSimilarFrameNodes(collFrameNodeMap, collVerticalCols, collFrameNodeMapGrouped, out collIntersectionGroupNodes, out collGroupNodeBeams, collAdjacentSuptPoints, suptGroupNo, suptPointEffectiveCentre);
 
             // Now build collPotlSuptFrameDetails with start points
-            collPotlSuptFrameDetails = PopulateStartsinPotlFrameColl(collIntersectionGroupNodes, collGroupNodeBeams, suptPointEffectiveCentre);
+            collPotlSuptFrameDetails = mPopulateStartsinPotlFrameColl.PopulateStartsinPotlFrameColl(collIntersectionGroupNodes, collGroupNodeBeams, suptPointEffectiveCentre);
 
             // Now start PopulateStartsinPotlFrameColl
             mRoutePotentialSuptFrames.RoutePotentialSuptFrames(collPotlSuptFrameDetails, collIntersectionGroupNodes, collGroupNodeBeams, noofSuptBeamEndCoords, suptGroupNo);
@@ -90,7 +90,7 @@ namespace SupA.Lib.FrameCreator
             return collPotlSuptFrameDetails;
         }
 
-        public void RationaliseLocalExistingSteel(List<cSteelDisc> collAllDiscBeams, List<cSuptPoints> collAdjacentSuptPoints)
+        public static void RationaliseLocalExistingSteel(List<cSteelDisc> collAllDiscBeams, List<cSuptPoints> collAdjacentSuptPoints)
         {
             cSuptPoints suptPoint;
             cSteelDisc discSteel;

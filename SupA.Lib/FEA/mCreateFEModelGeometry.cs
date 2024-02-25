@@ -36,7 +36,7 @@ namespace SupA.Lib.FEA
                 StdFile = $"Frame{SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod}\\STAAD\\{Frame.PotlSuptNo}\\SelectedSctnInput";
             }
 
-            collSTAADStdinput = ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "Vars\\"), "STDfiletemplate", ".csv", ",", "String", "String");
+            collSTAADStdinput = mImportCSVFiletoColl.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "Vars\\"), "STDfiletemplate", ".csv", ",", "String", "String");
 
             // collSTAADStdinput.Add("ASD",,,)
             I = 1;
@@ -78,25 +78,25 @@ namespace SupA.Lib.FEA
             // Export node coordinates
             int rangeRowEnd = mDefineSuptFramesSections.FindLastFullCell(input1Sheet, 7, 12);
             Excel.Range range = input1Sheet.Range["L7", $"O{rangeRowEnd}"];
-            object[,] nodeCoordinates = (object[,])range.Value;
+            int[,] nodeCoordinates = (int[,])range.Value;
             mExportArrtoCSVFile.ExportArrtoCSVFile(nodeCoordinates, $"Frame{SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod}\\NodeCoordinates-{Frame.PotlSuptNo}", "csv", true);
 
             // Export restraints
             rangeRowEnd = mDefineSuptFramesSections.FindLastFullCell(input1Sheet, 7, 17);
             range = input1Sheet.Range["Q7", $"W{rangeRowEnd}"];
-            object[,] restraints = (object[,])range.Value;
+            int[,] restraints = (int[,])range.Value;
             mExportArrtoCSVFile.ExportArrtoCSVFile(restraints, $"Frame{SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod}\\RestraintDetails-{Frame.PotlSuptNo}", "csv", true);
 
             // Export BeamDef
             rangeRowEnd = mDefineSuptFramesSections.FindLastFullCell(input1Sheet, 7, 25);
             range = input1Sheet.Range["Y7", $"AC{rangeRowEnd}"];
-            object[,] beamDef = (object[,])range.Value;
+            int[,] beamDef = (int[,])range.Value;
             mExportArrtoCSVFile.ExportArrtoCSVFile(beamDef, $"Frame{SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod}\\BeamDefinition-{Frame.PotlSuptNo}", "csv", true);
 
             // Export loads
             rangeRowEnd = mDefineSuptFramesSections.FindLastFullCell(input2Sheet, 12, 2);
             range = input2Sheet.Range["B12", $"J{rangeRowEnd}"];
-            object[,] loads = (object[,])range.Value;
+            int[,] loads = (int[,])range.Value;
             mExportArrtoCSVFile.ExportArrtoCSVFile(loads, $"Frame{SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod}\\LoadsonFrame-{Frame.PotlSuptNo}", "csv", true);
 
             workbook.Close(false);

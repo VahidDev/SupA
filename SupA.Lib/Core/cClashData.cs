@@ -23,10 +23,26 @@
         }
 
         private float eastingClashBoxCentre;
-        public float EastingClashBoxCentre => eastingClashBoxCentre;
-        public float NorthingClashBoxCentre => northingClashBoxCentre;
-        public float UppingClashBoxCentre => uppingClashBoxCentre;
-        public float ClashBoxSize => clashBoxSize;
+        public float EastingClashBoxCentre
+        {
+            get => eastingClashBoxCentre;
+            set => eastingClashBoxCentre = value;
+        }
+        public float NorthingClashBoxCentre
+        {
+            get => northingClashBoxCentre;
+            set => northingClashBoxCentre = value;
+        }
+        public float UppingClashBoxCentre
+        {
+            get => uppingClashBoxCentre;
+            set => uppingClashBoxCentre = value;
+        }
+        public float ClashBoxSize
+        {
+            get => clashBoxSize;
+            set => clashBoxSize = value;
+        }
         public string DiscsWithinClashBox { get => discsWithinClashBox; set => discsWithinClashBox = value; }
 
         private float northingClashBoxCentre;

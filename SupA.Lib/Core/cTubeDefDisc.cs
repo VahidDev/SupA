@@ -31,25 +31,10 @@ namespace SupA.Lib.Core
         }
 
         // Get Properties
-        public string TubeName => pTubeName;
-        public string TubeType => pTubeType;
         public string ComponentRef => pComponentRef;
-        public float abor => pABor;
-        public float lbor => pLBor;
-        public string Dir => pDir;
-        public float East => pEast;
-        public float North => pNorth;
-        public float Upping => pUpping;
         public float EastRounded => mPublicVarDefinitions.RoundDecPlc(pEast, mSubInitializationSupA.pubIntDiscretisationStepDecPlaces);
         public float NorthRounded => mPublicVarDefinitions.RoundDecPlc(pNorth, mSubInitializationSupA.pubIntDiscretisationStepDecPlaces);
         public float UppingRounded => mPublicVarDefinitions.RoundDecPlc(pUpping, mSubInitializationSupA.pubIntDiscretisationStepDecPlaces);
-        public string DiscClassification => pDiscClassification;
-        public string NameofPipe => pNameofPipe;
-        public float HoriOffsetfromStlMin => pHoriOffsetfromStlMin;
-        public float VertOffsetfromStlMin => pVertOffsetfromStlMin;
-        public float SuptPointScore => pSuptPointScore;
-        public int SuptPointScoreCat => pSuptPointScoreCat;
-        public string SuptRanking => pSuptRanking;
 
         // Let Properties
         public void WritefromcTubeDef(cTubeDef value)
@@ -64,69 +49,78 @@ namespace SupA.Lib.Core
             pNameofPipe = value.NameofPipe;
         }
 
-        public string TubeNameProperty
+        public string TubeName
         {
             set => pTubeName = value;
+            get=> pNameofPipe;
         }
-        public string TubeTypeProperty
+        public string TubeType
         {
             set => pTubeType = value;
+            get => pTubeType;
         }
         public string ComponentRefProperty
         {
             set => pComponentRef = value;
         }
-        public float ABorProperty
+        public float ABor
         {
-            set => pABor = value;
+            set => pABor = value; get => pABor;
         }
-        public float LBorProperty
+        public float LBor
         {
-            set => pLBor = value;
+            set => pLBor = value; get => pLBor;
         }
-        public string DirProperty
+        public string Dir
         {
             set => pDir = value;
+            get => pDir;
         }
-        public float EastProperty
+        public float East
         {
             set => pEast = value;
+            get => pEast;
         }
-        public float NorthProperty
+        public float North
         {
-            set => pNorth = value;
+            set => pNorth = value; get => pNorth;
         }
-        public float UppingProperty
+        public float Upping
         {
-            set => pUpping = value;
+            set => pUpping = value; get => pUpping;
         }
-        public string DiscClassificationProperty
+        public string DiscClassification
         {
-            set => pDiscClassification = value;
+            set => pDiscClassification = value; get => pDiscClassification;
         }
-        public string NameofPipeProperty
+        public string NameofPipe
         {
             set => pNameofPipe = value;
+            get => pNameofPipe;
         }
-        public float HoriOffsetfromStlMinProperty
+        public float HoriOffsetfromStlMin
         {
             set => pHoriOffsetfromStlMin = value;
+            get => pHoriOffsetfromStlMin;
         }
-        public float VertOffsetfromStlMinProperty
+        public float VertOffsetfromStlMin
         {
-            set => pVertOffsetfromStlMin = value;
+            set => pVertOffsetfromStlMin = value; get => pVertOffsetfromStlMin;
         }
-        public float SuptPointScoreProperty
+        public float SuptPointScore
         {
             set => pSuptPointScore = value;
+            get => pSuptPointScore;
         }
-        public int SuptPointScoreCatProperty
+        public int SuptPointScoreCat
         {
             set => pSuptPointScoreCat = value;
+            get => pSuptPointScoreCat;
         }
-        public string SuptRankingProperty
+        public string SuptRanking
         {
             set => pSuptRanking = value;
+            get => pSuptRanking;
         }
     }
 }

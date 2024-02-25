@@ -32,7 +32,7 @@ namespace SupA.Lib.FEA
             }
         }
 
-        static void DefineSuptFramesSections(List<cPotlSupt> collPotlSuptFrameDetails, List<cSuptPoints> collAdjacentSuptPoints, int suptGroupNo)
+        public static void DefineSuptFramesSections(List<cPotlSupt> collPotlSuptFrameDetails, List<cSuptPoints> collAdjacentSuptPoints, int suptGroupNo)
         {
             cPotlSupt frame;
             int frameC = 0;
@@ -109,7 +109,7 @@ namespace SupA.Lib.FEA
 
         public static void ExportFEMresults(cPotlSupt Frame, int SuptGroupNo)
         {
-            object[,] TmpExportArr;
+            int[,] TmpExportArr;
             int RangeRowEnd;
             
             Application excelApp = new Application();
@@ -118,12 +118,12 @@ namespace SupA.Lib.FEA
 
             // Export beam property types
             RangeRowEnd = FindLastFullCell(outputWorksheet, 11, 6);
-            TmpExportArr = (object[,])Interaction.CallByName(outputWorksheet.Range["E11:K" + RangeRowEnd], "value", CallType.Get);
+            TmpExportArr = (int[,])Interaction.CallByName(outputWorksheet.Range["E11:K" + RangeRowEnd], "value", CallType.Get);
             mExportArrtoCSVFile.ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\EndofBeamOutput-" + Frame.PotlSuptNo, "csv", true);
 
             // Export node coordinates
             RangeRowEnd = FindLastFullCell(outputWorksheet, 10, 14);
-            TmpExportArr = (object[,])Interaction.CallByName(outputWorksheet.Range["N10:AA" + RangeRowEnd], "value", CallType.Get);
+            TmpExportArr = (int[,])Interaction.CallByName(outputWorksheet.Range["N10:AA" + RangeRowEnd], "value", CallType.Get);
             mExportArrtoCSVFile.ExportArrtoCSVFile(TmpExportArr, "Frame" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod) + "\\AlongBeamOutput-" + Frame.PotlSuptNo, "csv", true);
         }
 

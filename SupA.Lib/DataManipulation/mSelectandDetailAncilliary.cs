@@ -5,7 +5,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mSelectandDetailAncilliary
     {
-        public void SelectandDetailAncilliary(IEnumerable<cTubeDefDisc> CollSelectedSuptLocns)
+        public static void SelectandDetailAncilliary(IEnumerable<cTubeDefDisc> CollSelectedSuptLocns)
         {
             foreach (var SelSuptLocnTube in CollSelectedSuptLocns)
             {
@@ -14,7 +14,7 @@ namespace SupA.Lib.DataManipulation
             }
         }
 
-        public cSuptPoints SelectSuptTypefromPhaast(cTubeDefDisc SelSuptLocnTube)
+        public static cSuptPoints SelectSuptTypefromPhaast(cTubeDefDisc SelSuptLocnTube)
         {
             var Supt = new cSuptPoints();
             WriteDatatoSuptLocn(Supt, SelSuptLocnTube);
@@ -43,12 +43,12 @@ namespace SupA.Lib.DataManipulation
             return Supt;
         }
 
-        public void WriteDatatoSuptLocn(cSuptPoints Supt, cTubeDefDisc SelSuptLocnTube)
+        public static void WriteDatatoSuptLocn(cSuptPoints Supt, cTubeDefDisc SelSuptLocnTube)
         {
             Supt.EastingSuptPointProperty = SelSuptLocnTube.East;
             Supt.NorthingSuptPointProperty = SelSuptLocnTube.North;
             Supt.ElSuptPointProperty = SelSuptLocnTube.Upping;
-            Supt.BoreProperty = SelSuptLocnTube.abor;
+            Supt.BoreProperty = SelSuptLocnTube.ABor;
             Supt.TubidirProperty = SelSuptLocnTube.Dir;
             Supt.PipeNameProperty = SelSuptLocnTube.NameofPipe;
             Supt.TubiNameProperty = SelSuptLocnTube.TubeName;

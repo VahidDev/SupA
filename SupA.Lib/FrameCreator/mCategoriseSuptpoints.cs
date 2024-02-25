@@ -7,7 +7,7 @@ namespace SupA.Lib.FrameCreator
 {
     public class mCategoriseSuptpoints
     {
-        public void CategoriseSuptpoints(List<cSuptPoints> CollAdjacentSuptPoints, int[] arrNoofLevels, int SuptGroupNo)
+        public static void CategoriseSuptpoints(List<cSuptPoints> CollAdjacentSuptPoints, int[] arrNoofLevels, int SuptGroupNo)
         {
             cSuptPoints Supt;
             float[] TOSCoordArray;
@@ -71,7 +71,7 @@ namespace SupA.Lib.FrameCreator
             mExportColltoCSVFile<cSuptPoints>.ExportColltoCSVFile(CollAdjacentSuptPoints, "CollAdjacentSuptPointswithLevels-F" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod).ToString(), "csv", null, true);
         }
 
-        public void SetSharedLevel(cSuptPoints Supt, int LL1c, int SharedLevelNo)
+        public static void SetSharedLevel(cSuptPoints Supt, int LL1c, int SharedLevelNo)
         {
             switch (LL1c)
             {
@@ -93,7 +93,7 @@ namespace SupA.Lib.FrameCreator
             }
         }
 
-        public bool CheckifSharedLevelisSet(cSuptPoints Supt, int LL1c)
+        public static bool CheckifSharedLevelisSet(cSuptPoints Supt, int LL1c)
         {
             bool isSet = false;
 
@@ -118,7 +118,7 @@ namespace SupA.Lib.FrameCreator
             return isSet;
         }
 
-        public float ReturnSharedLevelEltoCheck(cSuptPoints Supt, int LL1c)
+        public static float ReturnSharedLevelEltoCheck(cSuptPoints Supt, int LL1c)
         {
             float sharedLevel = 0;
 

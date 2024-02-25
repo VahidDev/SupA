@@ -8,10 +8,10 @@ namespace SupA.Lib.FrameCreator
 {
     public class mCollectLocalExistingDiscSteel
     {
-        public List<object> CollectLocalExistingDiscSteel(List<cSuptPoints> CollAdjacentSuptPoints, List<object> CollExistingSteelDisc)
+        public static List<cSteelDisc> CollectLocalExistingDiscSteel(List<cSuptPoints> CollAdjacentSuptPoints, List<cSteelDisc> CollExistingSteelDisc)
         {
             // Definition of all function specific private variables
-            List<object> coll = new List<object>();
+            var coll = new List<cSteelDisc>();
             float[] SuptCoordArrLL;
             float[] SuptCoordArrUL;
             float[] CoordArrLL;
@@ -64,7 +64,7 @@ namespace SupA.Lib.FrameCreator
             return coll;
         }
 
-        public void RemoveNonPerpdincularConcreteGrid(List<cSuptPoints> CollAdjacentSuptPoints, List<object> CollExistingSteelDisc)
+        public static void RemoveNonPerpdincularConcreteGrid(List<cSuptPoints> CollAdjacentSuptPoints, List<cSteelDisc> CollExistingSteelDisc)
         {
             // This part of the logic removes any concrete grids which are parallel to our pipe to leave only the perpendicular ones
             // which is important for later parts of the code
@@ -98,14 +98,14 @@ namespace SupA.Lib.FrameCreator
                 // and the LL1 steel disc can go
                 if (GridisParallelCount == CollAdjacentSuptPoints.Count)
                 {
-                    CollExistingSteelDisc.Remove(LL1);
+                    CollExistingSteelDisc.RemoveAt(LL1);
                     LL1--;
                 }
                 LL1++;
             }
         }
 
-        public void RemoveinShadowDiscSteel(List<cSuptPoints> CollAdjacentSuptPoints, List<object> CollExistingSteelDisc)
+        public static void RemoveinShadowDiscSteel(List<cSuptPoints> CollAdjacentSuptPoints, List<cSteelDisc> CollExistingSteelDisc)
         {
             // This part of the logic removes any trim steels that are hidden along their entire length from our suptbeam by existing steel
 
@@ -154,14 +154,14 @@ namespace SupA.Lib.FrameCreator
                 // and the LL1 steel disc can go
                 if (LineofSightBlockCount == CollAdjacentSuptPoints.Count)
                 {
-                    CollExistingSteelDisc.Remove(LL1);
+                    CollExistingSteelDisc.RemoveAt(LL1);
                     LL1--;
                 }
                 LL1++;
             }
         }
 
-        public bool CheckShadowLogic(cSteelDisc SteelLL1Disc, cSuptPoints SuptLL2, cSteelDisc SteelLL3Disc)
+        public static bool CheckShadowLogic(cSteelDisc SteelLL1Disc, cSuptPoints SuptLL2, cSteelDisc SteelLL3Disc)
         {
             bool LineofSightBlockBool = false;
 

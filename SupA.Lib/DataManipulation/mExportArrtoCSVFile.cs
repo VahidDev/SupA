@@ -5,7 +5,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mExportArrtoCSVFile
     {
-        public static void ExportArrtoCSVFile(object[,] arr, string filename, string fileExtension, bool stdSupAOutput = false, string overRideFolderPath = "")
+        public static void ExportArrtoCSVFile(int[,] arr, string filename, string fileExtension, bool stdSupAOutput = false, string overRideFolderPath = "")
         {
             // Set the folder and file name
             string myfile;

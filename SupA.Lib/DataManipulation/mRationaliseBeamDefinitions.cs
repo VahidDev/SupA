@@ -4,7 +4,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mRationaliseBeamDefinitions
     {
-        public void RationaliseBeamDefinitions(List<cPotlSupt> CollPotlSuptFrameDetails)
+        public static void RationaliseBeamDefinitions(List<cPotlSupt> CollPotlSuptFrameDetails)
         {
             foreach (var Frame in CollPotlSuptFrameDetails)
             {

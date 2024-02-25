@@ -13,7 +13,7 @@ namespace SupA.Lib.FrameCreator
             public List<cClashData> ClashDataCollection { get; set; }
         }
 
-        public CollectLocalClashDataResult CollectLocalClashData(List<cSuptPoints> collAdjacentSuptPoints, List<cClashData> collAllClashData, int suptGroupNo)
+        public static CollectLocalClashDataResult CollectLocalClashData(List<cSuptPoints> collAdjacentSuptPoints, List<cClashData> collAllClashData, int suptGroupNo)
         {
             // Definition of all function specific private variables
             cSuptPoints supt;

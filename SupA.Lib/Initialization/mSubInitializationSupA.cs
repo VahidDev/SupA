@@ -45,13 +45,14 @@ namespace SupA.Lib.Initialization
         public static float pubmanHourCost;
         public static int SuptGroupNoMod;
         public static cLogEntry pubLogEntry;
-        public static Collection<object> pubActivityLog; // Assuming Collection is a custom type or using System.Collections.ObjectModel
+        public static List<cPotlSupt> pubActivityLog; // Assuming Collection is a custom type or using System.Collections.ObjectModel
 
         // Functions for supt point selection
         public static TTblSuptSpanRules[] pubTblSuptSpanRules;
         public static TTblSuptScoreCat[] pubTblSuptScoreCat;
-        public static object[,] pubArrSuptPointEvalMatrix; // Variant array in VB.NET is closest to object[,] in C#
+        public static float[,] pubArrSuptPointEvalMatrix; // Variant array in VB.NET is closest to object[,] in C#
         public static int pubNoofCategories;
+        public static Application Application;
 
         public async Task SubInitilisationSupA(string StartMode = "")
         {
@@ -67,6 +68,8 @@ namespace SupA.Lib.Initialization
             Application excelApp = new Application();
             Workbook activeWorkbook = excelApp.ActiveWorkbook;
             Worksheet workSheet = (Worksheet)activeWorkbook.Sheets["SheetName"];
+            
+            Application = excelApp;
 
             strDirFolder = Path.GetDirectoryName(activeWorkbook.FullName) + @"\Xl\SupA.xlsm";
             strRunName = ImportFlagTxt(strDirFolder + @"\PowerShell\", "SupARunName", ".txt", ",");
@@ -83,7 +86,7 @@ namespace SupA.Lib.Initialization
             pubmanHourCost = 80;
 
             // Start Activity Log
-            pubActivityLog = new Collection<object>();
+            pubActivityLog = new List<cPotlSupt>();
 
             // This variable is specific to the support point selector functions
             pubNoofCategories = Convert.ToInt32(workSheet.Range["NoofCategories"].Value); // Replace "SheetName" with actual sheet name
