@@ -41,5 +41,47 @@ namespace SupA.Lib.DataManipulation
                 }
             }
         }
+
+        public static void AddDetailstoCurrPotlSuptRoute(cPotlSupt PotlSuptFrameLL2, cGroupNode GroupNodeLL5, cRouteNode RoutenodeLL5b, int PathsPartTravelledNo)
+        {
+            cRouteNode RouteNodeLL2 = new cRouteNode();
+            RouteNodeLL2 = PotlSuptFrameLL2.PathsPartTravelled[PathsPartTravelledNo].GroupedNodes[1];
+            bool DuplicateTieIn;
+            cRouteNode ExistingSteelTieIn;
+            cGroupNode DupGroupNodeChk;
+            bool DupGroupNodeChkFlag;
+
+            // this is a new check to prevent nodes being covered multiple times. The sequencing of this is important (in comparison to the subsequent code).
+            // as we are allowed to add a node we are arriving at for the first time into paths untravelled.
+            // we just want to prevent subsequent arrivals from becoming departures.
+            DupGroupNodeChkFlag = false;
+            foreach (cGroupNode PathsUnTravelled in PotlSuptFrameLL2.PathsUnTravelled)
+            {
+                if (PathsUnTravelled.GroupName == GroupNodeLL5.GroupName)
+                {
+                    DupGroupNodeChkFlag = true;
+                    break;
+                }
+            }
+
+            foreach (cGroupNode GroupNodesinFrame in PotlSuptFrameLL2.GroupNodesinFrame)
+            {
+                if (GroupNodesinFrame.GroupName == GroupNodeLL5.GroupName)
+                {
+                    DupGroupNodeChkFlag = true;
+                    break;
+                }
+            }
+
+            if (DupGroupNodeChkFlag == false)
+            {
+                PotlSuptFrameLL2.PathsUnTravelled.Add(GroupNodeLL5);
+            }
+
+            // Add travelled node and beam details into our potlsuptframe definition.
+            // Also add our current intersection node to our pathsuntravelled collection
+            PotlSuptFrameLL2.GroupNodesinFrame.Add(GroupNodeLL5);
+            PotlSuptFrameLL2.GroupNodesTravelled.Add(GroupNodeLL5.GroupName);
+        }
     }
 }
