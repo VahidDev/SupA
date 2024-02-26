@@ -36,7 +36,7 @@ namespace SupA.Lib.FEA
                 StdFile = $"Frame{SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod}\\STAAD\\{Frame.PotlSuptNo}\\SelectedSctnInput";
             }
 
-            collSTAADStdinput = mImportCSVFiletoColl.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "Vars\\"), "STDfiletemplate", ".csv", ",", "String", "String");
+            collSTAADStdinput = mImportCSVFiletoColl<string>.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "Vars\\"), "STDfiletemplate", ".csv", ",", typeof(string), "string");
 
             // collSTAADStdinput.Add("ASD",,,)
             I = 1;

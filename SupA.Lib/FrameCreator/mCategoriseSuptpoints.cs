@@ -7,7 +7,7 @@ namespace SupA.Lib.FrameCreator
 {
     public class mCategoriseSuptpoints
     {
-        public static void CategoriseSuptpoints(List<cSuptPoints> CollAdjacentSuptPoints, int[] arrNoofLevels, int SuptGroupNo)
+        public static void CategoriseSuptpoints(List<cSuptPoints> CollAdjacentSuptPoints, ref int[,] arrNoofLevels, int SuptGroupNo)
         {
             cSuptPoints Supt;
             float[] TOSCoordArray;
@@ -56,7 +56,9 @@ namespace SupA.Lib.FrameCreator
 
             if (CollAdjacentSuptPoints[0].Tubidir == "N" || CollAdjacentSuptPoints[0].Tubidir == "S" || CollAdjacentSuptPoints[0].Tubidir == "W" || CollAdjacentSuptPoints[0].Tubidir == "E")
             {
-                arrNoofLevels[0] = 0; arrNoofLevels[1] = 0; arrNoofLevels[2] = 0; arrNoofLevels[3] = SharedLevelNo[3];
+                //arrNoofLevels[0] = 0; arrNoofLevels[1] = 0; arrNoofLevels[2] = 0; arrNoofLevels[3] = SharedLevelNo[3];
+                // Converted for [,] instead of []:
+                arrNoofLevels[0, 0] = 0; arrNoofLevels[0, 1] = 0; arrNoofLevels[0, 2] = 0; arrNoofLevels[0, 3] = SharedLevelNo[3];
             }
             else if (CollAdjacentSuptPoints[0].Tubidir == "U" || CollAdjacentSuptPoints[0].Tubidir == "D")
             {

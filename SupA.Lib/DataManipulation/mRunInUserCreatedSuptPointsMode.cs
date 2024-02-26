@@ -39,7 +39,7 @@ namespace SupA.Lib.DataManipulation
             }
 
             // Activity Log Tracking
-            mWriteActivityLog.WriteActivityLog("Import and Prepare 3D Support Data for SupA to Run On", DateTime.Now());
+            mWriteActivityLog.WriteActivityLog("Import and Prepare 3D Support Data for SupA to Run On", DateTime.Now);
 
             // If using P3D output then convert this to the standard import format first
             if (mSubInitializationSupA.pubThreeDModelSoftware == "P3D")
@@ -54,16 +54,16 @@ namespace SupA.Lib.DataManipulation
 
             // Now collect data from the relevant CSV files
             SuptPointsinArea = new cSuptPoints();
-            CollSuptPointsinArea = mImportCSVFiletoColl.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-SuptPointData", ".csv", ",", SuptPointsinArea, "cSuptPoints");
+            CollSuptPointsinArea = mImportCSVFiletoColl<cSuptPoints>.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-SuptPointData", ".csv", ",", typeof(cSuptPoints), "cSuptPoints");
 
             ClashData = new cClashData();
-            CollClashData = mImportCSVFiletoColl.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-ClashData", ".csv", ",", ClashData, "cClashData");
+            CollClashData = mImportCSVFiletoColl<cClashData>.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-ClashData", ".csv", ",", typeof(cClashData), "cClashData");
 
             Existingsteel = new cSteel();
-            CollExistingSteel = mImportCSVFiletoColl.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-ExistingSteelData", ".csv", ",", Existingsteel, "cSteel");
+            CollExistingSteel = mImportCSVFiletoColl<cSteel>.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-ExistingSteelData", ".csv", ",", typeof(cSteel), "cSteel");
 
             ExistingConcrete = new cSteel();
-            CollExistingConcrete = mImportCSVFiletoColl.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-ExistingConcreteData", ".csv", ",", Existingsteel, "cSteel");
+            CollExistingConcrete = mImportCSVFiletoColl<cSteel>.ImportCSVFiletoColl(Path.Combine(mSubInitializationSupA.pubstrFolderPath, "3DOutSupAIn", "FrameCreationMode"), "Area-ExistingConcreteData", ".csv", ",", typeof(cSteel), "cSteel");
 
             // Convert CollExistingSteel to CollExistingSteelDisc
             CollExistingSteel = mManipulateStrutoSupAFormat.ManipulateStrutoSupAFormat(CollExistingSteel, mSubInitializationSupA.pubThreeDModelSoftware);

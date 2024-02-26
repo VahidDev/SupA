@@ -13,11 +13,11 @@ namespace SupA.Lib.DataManipulation
         public static void MasterFrameCreatorSub(List<cSuptPoints> CollSuptPointsinArea, List<cSteelDisc> CollExistingSteelDisc, List<cClashData> CollAllClashData, List<cSteel> CollExistingSteel)
         {
             int IntNoofSuptsGrouped;
-            List<cSuptPoints> CollAdjacentSuptPoints = new List<cSuptPoints>(); ;
-            List<cSteelDisc> CollLocalExistingSteelDisc = new List<cSteelDisc>(); ;
-            List<cSteel> CollExtendedBeams = new List<cSteel>(); ;
-            List<cSteel> CollSuptBeams = new List<cSteel>(); ;
-            CollectLocalClashDataResult CollLocalClashData = new CollectLocalClashDataResult(); ;
+            List<cSuptPoints> CollAdjacentSuptPoints = new List<cSuptPoints>();
+            List<cSteelDisc> CollLocalExistingSteelDisc = new List<cSteelDisc>();
+            List<cSteel> CollExtendedBeams = new List<cSteel>();
+            List<cSteel> CollSuptBeams = new List<cSteel>();
+            CollectLocalClashDataResult CollLocalClashData = new CollectLocalClashDataResult();
             List<cPotlSupt> CollPotlSuptFrameDetails = new List<cPotlSupt>();
             int NoofSuptBeamEndCoords = 0;
             int SuptGroupNo;
@@ -56,7 +56,7 @@ namespace SupA.Lib.DataManipulation
                 if (mSubInitializationSupA.pubBOOLTraceOn == true)
                     mExportColltoCSVFile<cClashData>.ExportColltoCSVFile(CollLocalClashData.ClashDataCollection, "CollLocalClashData-F" + (SuptGroupNo + mSubInitializationSupA.SuptGroupNoMod), "csv");
 
-                mCategoriseSuptpoints.CategoriseSuptpoints(CollAdjacentSuptPoints, arrNoofLevels, SuptGroupNo);
+                mCategoriseSuptpoints.CategoriseSuptpoints(CollAdjacentSuptPoints, ref arrNoofLevels, SuptGroupNo);
 
                 CollLocalExistingSteelDisc = mCollectLocalExistingDiscSteel.CollectLocalExistingDiscSteel(CollAdjacentSuptPoints, CollExistingSteelDisc);
                 if (mSubInitializationSupA.pubBOOLTraceOn == true)

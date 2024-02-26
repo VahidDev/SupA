@@ -3,16 +3,16 @@ using SupA.Lib.Models;
 
 namespace SupA.Lib.DataManipulation
 {
-    public class mImportCSVFiletoColl
+    public class mImportCSVFiletoColl<T> where T : class
     {
-        public static List<object> ImportCSVFiletoColl(string folderPath, string filename, string fileExtension, string variableSeparator, dynamic classVarToCreate, string classType)
+        public static List<T> ImportCSVFiletoColl(string folderPath, string filename, string fileExtension, string variableSeparator, dynamic classVarToCreate, string classType)
         {
             string line;
             string[] arrElementsRow;
             string completeFilePath = Path.Combine(folderPath, filename + fileExtension);
             int txtFileColCount;
             int lineNumberFile = 0;
-            List<object> collToReturn = new List<object>();
+            var collToReturn = new List<T>();
 
             // Open file for input and check width of file
             using (StreamReader reader = new StreamReader(completeFilePath))
@@ -56,7 +56,7 @@ namespace SupA.Lib.DataManipulation
                         {
                             classVarToCreate = new cTubeDef();
                         }
-                        else if (classType == "String")
+                        else if (classType.ToLower() == "string")
                         {
                             // No need to create an object for string type
                         }
@@ -66,14 +66,14 @@ namespace SupA.Lib.DataManipulation
                         }
 
                         // Add object to the collection
-                        if (classType != "String")
+                        if (classType.ToLower() != "string")
                         {
                             classVarToCreate.ReadAll(arrElementsRow);
                             collToReturn.Add(classVarToCreate);
                         }
                         else
                         {
-                            collToReturn.Add(arrElementsRow[0]);
+                            (collToReturn as List<string>).Add(arrElementsRow[0]);
                         }
                     }
                 }

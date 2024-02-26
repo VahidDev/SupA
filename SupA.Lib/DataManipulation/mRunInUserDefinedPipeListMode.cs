@@ -38,9 +38,9 @@ namespace SupA.Lib.DataManipulation
             if (mSubInitializationSupA.pubThreeDModelSoftware == "P3D")
             {
                 mImportSDNFtoSupAFormat.ImportSDNFtoSupA(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "P3D-ExistingSteelData", "SuptPointSelMode\\Area-ExistingSteelData");
-                CollExistingSteel = mImportCSVFiletoColl.ImportCSVFiletoColl<cSteel>(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData", ',', new cSteel());
+                CollExistingSteel = mImportCSVFiletoColl<cSteel>.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData", ".csv", ",", typeof(cSteel), "cSteel");
 
-                CollPipeforSupporting = mImportCSVFiletoColl.ImportCSVFiletoColl<cTubeDef>(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData", ',', new cTubeDef());
+                CollPipeforSupporting = mImportCSVFiletoColl<cTubeDef>.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData", ".csv", ",", typeof(cTubeDef), "cTubeDef");
 
                 // Then split the Area-ExistingSteelData into a collection of csv files (one per tubi)
                 for (var I = 1; I <= CollPipeforSupporting.Count; I++)
@@ -55,8 +55,7 @@ namespace SupA.Lib.DataManipulation
             // is collect existing steel and existing concrete specific to each of these tubes as this is a more efficient way of executing the code
 
             var PipeforSupporting = new cTubeDef();
-            CollPipeforSupporting = mImportCSVFiletoColl.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",
-            ".csv", ",", PipeforSupporting, nameof(cTubeDef));
+            CollPipeforSupporting = mImportCSVFiletoColl<cTubeDef>.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-PipeData",".csv", ",", typeof(cTubeDef), "cTubeDef");
 
             // Let's loop through and support one tube at a time
             for (int I = 1; I <= CollPipeforSupporting.Count; I++)
@@ -68,15 +67,13 @@ namespace SupA.Lib.DataManipulation
 
                 // Import the steel specific concrete definition file
                 var Existingsteel = new cSteel();
-                CollExistingSteel = mImportCSVFiletoColl.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData-" + I,
-                ".csv", ",", Existingsteel, nameof(cSteel));
+                CollExistingSteel = mImportCSVFiletoColl<cSteel>.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingSteelData-" + I, ".csv", ",", typeof(cSteel), "cSteel");
 
                 mExportColltoCSVFile<object>.ExportColltoCSVFile(CollAllSelectedSuptLocns, "CollSelectedSuptLocns", "csv", StdSupAOutput: true);
 
                 // Import the tubi specific concrete definition file
                 var ExistingConcrete = new cSteel();
-                CollExistingConcrete = mImportCSVFiletoColl.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingConcreteData-" + I,
-                ".csv", ",", ExistingConcrete, nameof(cSteel));
+                CollExistingConcrete = mImportCSVFiletoColl<cSteel>.ImportCSVFiletoColl(mSubInitializationSupA.pubstrFolderPath + "3DOutSupAIn\\SuptPointSelMode\\", "Area-ExistingConcreteData-" + I, ".csv", ",", typeof(cSteel), "cSteel");
 
                 // Convert CollExistingSteel to CollExistingSteelDisc
                 CollExistingSteel = mManipulateStrutoSupAFormat.ManipulateStrutoSupAFormat(CollExistingSteel, mSubInitializationSupA.pubThreeDModelSoftware);

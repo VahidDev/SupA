@@ -6,7 +6,7 @@ namespace SupA.Lib.DataManipulation
 {
     public class mMasterSuptPointCreatorSub
     {
-        public List<object> MasterSuptPointCreatorSub(List<cTubeDef> CollPipeforSupporting, List<cSteelDisc> CollExistingSteelDisc, List<object> CollExistingSteel, List<cTubeDefDisc> CollSelectedSuptLocns, List<object> CollAllSuptPointScores, List<object> CollAllSelectedSuptLocns)
+        public static List<object> MasterSuptPointCreatorSub(List<cTubeDef> CollPipeforSupporting, List<cSteelDisc> CollExistingSteelDisc, List<cSteel> CollExistingSteel, List<cTubeDefDisc> CollSelectedSuptLocns, List<object> CollAllSuptPointScores, List<object> CollAllSelectedSuptLocns)
         {
             bool SuptsReqdFlag = false;
             List<cTubeDefDisc> CollSuptPointScores = new List<cTubeDefDisc>();
@@ -29,7 +29,10 @@ namespace SupA.Lib.DataManipulation
             // Activity Log Tracking
             mWriteActivityLog.WriteActivityLog("Select Best Supt Points Along Tubes  - All Pipes", DateTime.Now);
 
-            if (mSubInitializationSupA.pubBOOLTraceOn) mExportColltoCSVFile<cTubeDefDisc>.ExportColltoCSVFile(CollSuptPointScores, "CollSuptPointScores7407", "csv");
+            if (mSubInitializationSupA.pubBOOLTraceOn)
+            {
+                mExportColltoCSVFile<cTubeDefDisc>.ExportColltoCSVFile(CollSuptPointScores, "CollSuptPointScores7407", "csv");
+            }
 
             // And finally choose the best support point by evaluating the output of arraysupportsreqd against the suitability of every supt point along the pipe suptpointscores
             CollSelectedSuptLocns = SelectSupportPoints(CollPipeforSupporting, CollSuptPointScores);
@@ -51,7 +54,7 @@ namespace SupA.Lib.DataManipulation
             return CollAllSelectedSuptLocns; // Assuming this is the intended return, adjusted for C# syntax
         }
 
-        public void DefineApproxSuptCountPerTube(List<cTubeDef> CollPipeforSupporting, ref bool SuptsReqdFlag)
+        private static void DefineApproxSuptCountPerTube(List<cTubeDef> CollPipeforSupporting, ref bool SuptsReqdFlag)
         {
             foreach (var Tube in CollPipeforSupporting)
             {
@@ -94,7 +97,7 @@ namespace SupA.Lib.DataManipulation
             }
         }
 
-        public List<cTubeDefDisc> ScoreSuptPoints(List<cTubeDef> collPipeforSupporting, List<cSteelDisc> collExistingSteelDisc, List<cTubeDefDisc> collSuptPointScores)
+        private static List<cTubeDefDisc> ScoreSuptPoints(List<cTubeDef> collPipeforSupporting, List<cSteelDisc> collExistingSteelDisc, List<cTubeDefDisc> collSuptPointScores)
         {
             double pubIntDiscretisationStepSize = 1.0; // Define this based on your actual discretisation step size
             float horiDistCheck =0f;
@@ -146,7 +149,7 @@ namespace SupA.Lib.DataManipulation
             return collSuptPointScores;
         }
 
-        public void GetSuptScoreofPoint(float HoriDistCheck, float VertDistCheck, cTubeDefDisc TubeDisc)
+        private static void GetSuptScoreofPoint(float HoriDistCheck, float VertDistCheck, cTubeDefDisc TubeDisc)
         {
             for (int CountH = 0; CountH < mSubInitializationSupA.pubArrSuptPointEvalMatrix.GetLength(0); CountH++) // Rows
             {
@@ -168,7 +171,7 @@ namespace SupA.Lib.DataManipulation
             }
         }
 
-        public int CategorisePointSuit(float pointScore)
+        private static int CategorisePointSuit(float pointScore)
         {
             int suptCat = 0; // Default or unknown category
 
@@ -184,7 +187,7 @@ namespace SupA.Lib.DataManipulation
             return suptCat;
         }
 
-        public TTblSuptSpanRules? SelectSupportPointsDefineVariables(cTubeDef tubeForSupting)
+        private static TTblSuptSpanRules? SelectSupportPointsDefineVariables(cTubeDef tubeForSupting)
         {
             // Loop through all the entries in pubTblSuptSpanRules
             foreach (var selectedSuptSpanRule in mSubInitializationSupA.pubTblSuptSpanRules)
@@ -202,7 +205,7 @@ namespace SupA.Lib.DataManipulation
             return null;
         }
 
-        public int SetupforSupportonShortRun(cTubeDef tubeForSupting, List<cTubeDefDisc> collSuptPointScores, float allowableSpan, float allowableAfterBend, out int goForwardOrBack, out double noOfLoops, out int counterStartingPoint)
+        private static int SetupforSupportonShortRun(cTubeDef tubeForSupting, List<cTubeDefDisc> collSuptPointScores, float allowableSpan, float allowableAfterBend, out int goForwardOrBack, out double noOfLoops, out int counterStartingPoint)
         {
             double suptLocnForEvalE, suptLocnForEvalN, suptLocnForEvalU;
 
@@ -234,7 +237,7 @@ namespace SupA.Lib.DataManipulation
             return counterStartingPoint; // Assuming a return is needed; adjust as necessary
         }
 
-        public cTubeDefDisc SelectBestSuptPointinRange(double noOfLoops, ref int counterSuptPointEval, int counterStartingPoint, int goForwardOrBack, List<cTubeDefDisc> collSuptPointScores, string suptRank)
+        private static cTubeDefDisc SelectBestSuptPointinRange(double noOfLoops, ref int counterSuptPointEval, int counterStartingPoint, int goForwardOrBack, List<cTubeDefDisc> collSuptPointScores, string suptRank)
         {
             cTubeDefDisc selectedSuptPoint = new cTubeDefDisc();
 
@@ -276,12 +279,12 @@ namespace SupA.Lib.DataManipulation
             return selectedSuptPoint; // Return the selected support point, if any
         }
 
-        private bool IsValidIndex(int index, List<cTubeDefDisc> list)
+        private static bool IsValidIndex(int index, List<cTubeDefDisc> list)
         {
             return index > 0 && index <= list.Count; // Ensure the index is within the bounds of the list
         }
 
-        private void AssignPropertiesFromSourceToDestination(cTubeDefDisc source, ref cTubeDefDisc destination, string suptRank)
+        private static void AssignPropertiesFromSourceToDestination(cTubeDefDisc source, ref cTubeDefDisc destination, string suptRank)
         {
             // Assuming cTubeDefDisc has properties like East, North, Upping, TubeName, etc.
             destination.East = source.East;
@@ -300,7 +303,7 @@ namespace SupA.Lib.DataManipulation
             destination.DiscClassification = source.DiscClassification;
         }
 
-        void GetBackwithinArrayandFtub(int Counterstartingpoint, List<cTubeDefDisc> CollSuptPointScores, ref double Suptlocnforeval, int Dirnftub, cTubeDef TubeforSupting)
+        private static void GetBackwithinArrayandFtub(int Counterstartingpoint, List<cTubeDefDisc> CollSuptPointScores, ref double Suptlocnforeval, int Dirnftub, cTubeDef TubeforSupting)
         {
             // re-adjust for when we're at the very end of the array and suptpointscores has run out of spare entries at the edge to
             // use as a fudge factor
@@ -325,7 +328,7 @@ namespace SupA.Lib.DataManipulation
             // surely I then need to redefine my number of loops and dirn of travel XYZ
         }
 
-        void SetupforSupportonStraightRun(cTubeDef TubeforSupting, List<cTubeDefDisc> CollSuptPointScores, float AllowableSpan, float AllowableAfterBend, ref int GoForwardorBack, ref double NoofLoops, ref int Counterstartingpoint, ref bool FullySuptedFlag, float MinSpanRatioBetweenSupts)
+        private static void SetupforSupportonStraightRun(cTubeDef TubeforSupting, List<cTubeDefDisc> CollSuptPointScores, float AllowableSpan, float AllowableAfterBend, ref int GoForwardorBack, ref double NoofLoops, ref int Counterstartingpoint, ref bool FullySuptedFlag, float MinSpanRatioBetweenSupts)
         {
             double Suptlocnforeval = 0;
             double SuptLocnForEvalE = 0;
@@ -389,7 +392,7 @@ namespace SupA.Lib.DataManipulation
             }
         }
 
-        float ReturnRelevantCoordinate(cTubeDef TubeforSupting)
+        private static float ReturnRelevantCoordinate(cTubeDef TubeforSupting)
         {
             float relevantCoordinate = 0;
 
@@ -409,7 +412,7 @@ namespace SupA.Lib.DataManipulation
             return relevantCoordinate;
         }
 
-        void SetupforFirstAfterBend(cTubeDef TubeforSupting, List<cTubeDefDisc> CollSuptPointScores, float AllowableAfterBend, ref int GoForwardorBack, ref double NoofLoops, ref int Counterstartingpoint)
+        private static void SetupforFirstAfterBend(cTubeDef TubeforSupting, List<cTubeDefDisc> CollSuptPointScores, float AllowableAfterBend, ref int GoForwardorBack, ref double NoofLoops, ref int Counterstartingpoint)
         {
             int CountG;
             double Suptlocnforeval = 0;
@@ -572,7 +575,7 @@ namespace SupA.Lib.DataManipulation
             return SelectedSuptPoint;
         }
 
-        List<cTubeDefDisc> SelectSupportPoints(List<cTubeDef> CollPipeforSupporting, List<cTubeDefDisc> CollSuptPointScores)
+        private static List<cTubeDefDisc> SelectSupportPoints(List<cTubeDef> CollPipeforSupporting, List<cTubeDefDisc> CollSuptPointScores)
         {
             bool FullySuptedFlag;
             int GoForwardorBack = 0;
