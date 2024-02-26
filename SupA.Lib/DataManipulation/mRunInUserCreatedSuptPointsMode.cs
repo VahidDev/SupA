@@ -39,7 +39,7 @@ namespace SupA.Lib.DataManipulation
             }
 
             // Activity Log Tracking
-            mWriteActivityLog.WriteActivityLog("Import and Prepare 3D Support Data for SupA to Run On", DateTime.Now());
+            mWriteActivityLog.WriteActivityLog("Import and Prepare 3D Support Data for SupA to Run On", DateTime.Now);
 
             // If using P3D output then convert this to the standard import format first
             if (mSubInitializationSupA.pubThreeDModelSoftware == "P3D")
