@@ -21,7 +21,6 @@ namespace SupA.Lib.DataManipulation
             List<cPotlSupt> CollPotlSuptFrameDetails = new List<cPotlSupt>();
             int NoofSuptBeamEndCoords = 0;
             int SuptGroupNo;
-            var FSO = new FileSystemObject();
             bool SuptGroupNoModFound;
             int NewFolderNo;
             int[,] arrNoofLevels = null;
@@ -41,9 +40,9 @@ namespace SupA.Lib.DataManipulation
                     NewFolderNo = SuptGroupNo;
                     while (SuptGroupNoModFound == false)
                     {
-                        if (!(FSO.FolderExists(mSubInitializationSupA.pubstrFolderPath + "SupAOutput\\Frame" + NewFolderNo)))
+                        if (!(Directory.Exists(mSubInitializationSupA.pubstrFolderPath + "SupAOutput\\Frame" + NewFolderNo)))
                         {
-                            FSO.CreateFolder(mSubInitializationSupA.pubstrFolderPath + "SupAOutput\\Frame" + NewFolderNo);
+                            Directory.CreateDirectory(mSubInitializationSupA.pubstrFolderPath + "SupAOutput\\Frame" + NewFolderNo);
                             break;
                         }
                         NewFolderNo = NewFolderNo + 1;
